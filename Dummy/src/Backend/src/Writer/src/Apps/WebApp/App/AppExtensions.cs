@@ -1,0 +1,132 @@
+﻿namespace Makc2025.Dummy.Writer.Apps.WebApp.App;
+
+/// <summary>
+/// Расширения приложения.
+/// </summary>
+public static class AppExtensions
+{
+  /// <summary>
+  /// Добавить пользовательский интерфейс приложения.
+  /// </summary>
+  /// <param name="appBuilder">Построитель приложения.</param>
+  /// <param name="logger">Логгер.</param>
+  /// <returns>Сервисы.</returns>
+  public static IServiceCollection AddAppUI(this WebApplicationBuilder appBuilder, ILogger logger)
+  {
+    var appConfigSection = appBuilder.Configuration.GetSection("App");
+
+    var appConfigSectionAuthentication = appConfigSection.GetSection("Authentication");
+
+    var appConfigSectionRabbitMQ = appConfigSection.GetSection("RabbitMQ");
+
+    var appConfigOptions = new AppConfigOptions();
+
+    appConfigSection.Bind(appConfigOptions);
+
+    var services = appBuilder.Services.Configure<AppConfigOptions>(appConfigSection)
+      .AddAppDomainModel(logger)
+      .AddAppDomainUseCases(logger)
+      .AddAppInfrastructureTiedToAuthentication(logger, appConfigSectionAuthentication)
+      .AddAppInfrastructureTiedToRabbitMQ(logger, appConfigSectionRabbitMQ)
+      .AddAppInfrastructureTiedToEntityFramework(
+        logger,
+        appConfigOptions.PostgreSQL,
+        appBuilder.Configuration)
+      .AddAppInfrastructureTiedToCore(logger, appBuilder.Configuration);
+    
+    services.Configure<CookiePolicyOptions>(options =>
+    {
+      options.CheckConsentNeeded = context => true;
+      options.MinimumSameSitePolicy = SameSiteMode.None;
+    });
+
+    services.AddAppInfrastructureTiedToGRPC(logger);
+
+    services.AddFastEndpoints();
+
+    var authentication = appConfigOptions.Authentication;
+
+    if (authentication != null)
+    {
+      services.AddAuthorization()
+        .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+        .AddJwtBearer(options =>
+        {
+          byte[] keyBytes = Encoding.UTF8.GetBytes(authentication.Key);
+
+          var issuerSigningKey = authentication.GetSymmetricSecurityKey();
+
+          options.TokenValidationParameters = new TokenValidationParameters
+          {
+            ValidateIssuer = true,
+            ValidIssuer = authentication.Issuer,
+            ValidateAudience = true,
+            ValidAudience = authentication.Audience,
+            ValidateLifetime = true,
+            IssuerSigningKey = issuerSigningKey,
+            ValidateIssuerSigningKey = true
+          };
+        });
+    }
+
+    services.SwaggerDocument(options =>
+    {
+      options.ShortSchemaNames = true;
+      options.EnableJWTBearerAuth = true;
+    });
+
+    logger.LogInformation("Added app UI");
+
+    return services;
+  }
+
+  /// <summary>
+  /// Использовать UI приложения.
+  /// </summary>
+  /// <param name="app">Приложение.</param>
+  /// <param name="logger">Логгер.</param>
+  /// <returns>Приложение.</returns>
+  public static async Task<WebApplication> UseAppUI(this WebApplication app, ILogger logger)
+  {
+    if (app.Environment.IsDevelopment())
+    {
+      IdentityModelEventSource.ShowPII = true;
+
+      app.UseDeveloperExceptionPage();
+    }
+    else
+    {
+      app.UseDefaultExceptionHandler(); // from FastEndpoints
+
+      app.UseHsts();
+    }
+
+    List<CultureInfo> supportedCultures = [new("ru"), new("en")];
+
+    var requestLocalizationOptions = new RequestLocalizationOptions
+    {
+      DefaultRequestCulture = new("ru"),
+      SupportedCultures = supportedCultures,
+      SupportedUICultures = supportedCultures
+    };
+
+    app.UseRequestLocalization(requestLocalizationOptions);
+
+    //app.UseHttpsRedirection(); // //makc//Не нужно для внутреннего сервиса//
+
+    app.UseAuthentication()
+      .UseAuthorization()
+      .UseMiddleware<AppTracingMiddleware>()
+      .UseMiddleware<AppSessionMiddleware>();
+
+    app.UseAppInfrastructureTiedToGRPC(logger);
+
+    app.UseFastEndpoints().UseSwaggerGen(); // Includes AddFileServer and static files middleware
+
+    await app.UseAppInfrastructureTiedToEntityFramework(logger);
+
+    logger.LogInformation("Used app UI");
+
+    return app;
+  }
+}

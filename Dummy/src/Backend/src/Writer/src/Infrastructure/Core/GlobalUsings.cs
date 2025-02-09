@@ -1,0 +1,13 @@
+﻿global using Makc2025.Dummy.Shared.Core.App;
+global using Makc2025.Dummy.Writer.DomainModel.AppEvent;
+global using Makc2025.Dummy.Writer.DomainModel.AppEventPayload;
+global using Makc2025.Dummy.Writer.DomainModel.DummyItem;
+global using Makc2025.Dummy.Writer.Infrastructure.Core.AppEvent;
+global using Makc2025.Dummy.Writer.Infrastructure.Core.AppEventPayload;
+global using Makc2025.Dummy.Writer.Infrastructure.Core.DummyItem;
+global using Microsoft.Extensions.Configuration;
+global using Microsoft.Extensions.DependencyInjection;
+global using Microsoft.Extensions.Localization;
+global using Microsoft.Extensions.Logging;
+global using Serilog;
+global using Serilog.Extensions.Logging;
