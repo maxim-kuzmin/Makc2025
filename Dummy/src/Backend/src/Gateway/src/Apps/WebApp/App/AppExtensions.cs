@@ -6,38 +6,63 @@
 public static class AppExtensions
 {
   /// <summary>
-  /// Добавить уровень пользовательского интерфейса приложения.
+  /// Добавить пользовательский интерфейс приложения.
   /// </summary>
-  /// <param name="services">Сервисы.</param>
+  /// <param name="appBuilder">Построитель приложения.</param>
   /// <param name="logger">Логгер.</param>
-  /// <param name="appConfigOptions">Параметры конфигурации приложения.</param>
   /// <returns>Сервисы.</returns>
-  public static IServiceCollection AddAppUILayer(
-    this IServiceCollection services,
-    ILogger logger,
-    AppConfigOptions appConfigOptions)
+  public static IServiceCollection AddAppUI(this WebApplicationBuilder appBuilder, ILogger logger)
   {
+    var appConfigSection = appBuilder.Configuration.GetSection("App");
+
+    var appConfigOptions = new AppConfigOptions();
+
+    appConfigSection.Bind(appConfigOptions);
+
+    var services = appBuilder.Services.Configure<AppConfigOptions>(appConfigSection)
+      .AddAppDomainModel(logger)
+      .AddAppDomainUseCases(logger)
+      .AddAppInfrastructureTiedToCore(logger, appBuilder.Configuration);
+
+    var writer = Guard.Against.Null(appConfigOptions.Writer);
+
+    switch (writer.Transport)
+    {
+      case AppTransport.Http:
+        services.AddAppInfrastructureTiedToHttp(logger, writer.RestApiAddress);
+        break;
+      case AppTransport.Grpc:      
+        services.AddAppInfrastructureTiedToGrpc(logger, writer.GrpcApiAddress);
+        break;
+      default:
+        throw new NotImplementedException();
+    }
+
     services.Configure<CookiePolicyOptions>(options =>
     {
       options.CheckConsentNeeded = context => true;
       options.MinimumSameSitePolicy = SameSiteMode.None;
     });
 
-    services.AddFastEndpoints()
+    services.AddFastEndpoints();
+
+    var authentication = Guard.Against.Null(appConfigOptions.Authentication);
+
+    services
       .AddAuthorization()
       .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
       .AddJwtBearer(options =>
       {
-        byte[] keyBytes = Encoding.UTF8.GetBytes(appConfigOptions.Authentication.Key);
+        byte[] keyBytes = Encoding.UTF8.GetBytes(authentication.Key);
 
-        var issuerSigningKey = appConfigOptions.Authentication.GetSymmetricSecurityKey();
+        var issuerSigningKey = authentication.GetSymmetricSecurityKey();
 
         options.TokenValidationParameters = new TokenValidationParameters
         {
           ValidateIssuer = true,
-          ValidIssuer = appConfigOptions.Authentication.Issuer,
+          ValidIssuer = authentication.Issuer,
           ValidateAudience = true,
-          ValidAudience = appConfigOptions.Authentication.Audience,
+          ValidAudience = authentication.Audience,
           ValidateLifetime = true,
           IssuerSigningKey = issuerSigningKey,
           ValidateIssuerSigningKey = true
@@ -50,18 +75,18 @@ public static class AppExtensions
       options.EnableJWTBearerAuth = true;
     });
 
-    logger.LogInformation("UI layer added");
+    logger.LogInformation("Added app UI");
 
     return services;
   }
 
   /// <summary>
-  /// Использовать уровень пользовательского интерфейса приложения.
+  /// Использовать UI приложения.
   /// </summary>
   /// <param name="app">Приложение.</param>
   /// <param name="logger">Логгер.</param>
   /// <returns>Приложение.</returns>
-  public static WebApplication UseAppUILayer(this WebApplication app, ILogger logger)
+  public static WebApplication UseAppUI(this WebApplication app, ILogger logger)
   {
     if (app.Environment.IsDevelopment())
     {
@@ -96,16 +121,8 @@ public static class AppExtensions
 
     app.UseFastEndpoints().UseSwaggerGen(); // Includes AddFileServer and static files middleware    
 
-    logger.LogInformation("UI layer used");
+    logger.LogInformation("Used app UI");
 
     return app;
-  }
-
-  private static SymmetricSecurityKey GetSymmetricSecurityKey(
-    this AppConfigOptionsAuthentication options)
-  {
-    byte[] keyBytes = Encoding.UTF8.GetBytes(options.Key);
-
-    return new SymmetricSecurityKey(keyBytes);
   }
 }

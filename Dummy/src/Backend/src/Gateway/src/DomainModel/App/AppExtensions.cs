@@ -1,4 +1,4 @@
-﻿namespace Makc2025.Dummy.Writer.DomainModel.App;
+﻿namespace Makc2025.Dummy.Gateway.DomainModel.App;
 
 /// <summary>
 /// Расширения приложения.
@@ -13,10 +13,6 @@ public static class AppExtensions
   /// <returns>Сервисы.</returns>
   public static IServiceCollection AddAppDomainModel(this IServiceCollection services, ILogger logger)
   {
-    services.AddSingleton<IAppEventFactory, AppEventFactory>();
-    services.AddSingleton<IAppEventPayloadFactory, AppEventPayloadFactory>();
-    services.AddSingleton<IDummyItemFactory, DummyItemFactory>();
-
     logger.LogInformation("Added domain model");
 
     return services;

@@ -1,4 +1,4 @@
-﻿namespace Makc2025.Dummy.Gateway.Infrastructure.App;
+﻿namespace Makc2025.Dummy.Gateway.Infrastructure.Core.App;
 
 /// <summary>
 /// Логгер приложения.

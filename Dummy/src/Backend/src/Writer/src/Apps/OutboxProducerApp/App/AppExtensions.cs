@@ -24,12 +24,9 @@ public static class AppExtensions
     var services = appBuilder.Services.Configure<AppConfigOptions>(appConfigSection)
       .AddAppDomainModel(logger)
       .AddAppDomainUseCases(logger)
-      .AddAppInfrastructureTiedToRabbitMQ(logger, appConfigSectionRabbitMQ)
-      .AddAppInfrastructureTiedToEntityFramework(
-        logger,
-        appConfigOptions.PostgreSQL,
-        appBuilder.Configuration)
-      .AddAppInfrastructureTiedToCore(logger, appBuilder.Configuration);
+      .AddAppInfrastructureTiedToCore(logger, appBuilder.Configuration)
+      .AddAppInfrastructureTiedToEntityFramework(logger, appConfigOptions.PostgreSQL, appBuilder.Configuration)
+      .AddAppInfrastructureTiedToRabbitMQ(logger, appConfigSectionRabbitMQ);
 
     services.AddHostedService<AppService>();
 

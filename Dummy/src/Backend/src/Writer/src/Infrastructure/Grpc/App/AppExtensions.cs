@@ -6,13 +6,13 @@
 public static class AppExtensions
 {
   /// <summary>
-  /// Добавить инфраструктуру приложения, привязанную к GRPC.
+  /// Добавить инфраструктуру приложения, привязанную к Grpc.
   /// </summary>
   /// <param name="services">Сервисы.</param>
   /// <param name="logger">Логгер.</param>
   /// <param name="appConfigOptions">Параметры конфигурации приложения.</param>
   /// <returns>Сервисы.</returns>
-  public static IServiceCollection AddAppInfrastructureTiedToGRPC(
+  public static IServiceCollection AddAppInfrastructureTiedToGrpc(
     this IServiceCollection services,
     ILogger logger)
   {
@@ -21,25 +21,25 @@ public static class AppExtensions
       options.EnableDetailedErrors = true;
     });
 
-    logger.LogInformation("Added app infrastructure tied to GRPC");
+    logger.LogInformation("Added app infrastructure tied to Grpc");
 
     return services;
   }
 
   /// <summary>
-  /// Использовать инфраструктуру приложения, привязанную к GRPC.
+  /// Использовать инфраструктуру приложения, привязанную к Grpc.
   /// </summary>
   /// <param name="app">Приложение.</param>
   /// <param name="logger">Логгер.</param>
   /// <returns>Приложение.</returns>
-  public static WebApplication UseAppInfrastructureTiedToGRPC(this WebApplication app, ILogger logger)
+  public static WebApplication UseAppInfrastructureTiedToGrpc(this WebApplication app, ILogger logger)
   {
     app.MapGrpcService<AppService>();
     app.MapGrpcService<AppEventService>();
     app.MapGrpcService<AppEventPayloadService>();
     app.MapGrpcService<DummyItemService>();
 
-    logger.LogInformation("Used app infrastructure tied to GRPC");
+    logger.LogInformation("Used app infrastructure tied to Grpc");
 
     return app;
   }

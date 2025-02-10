@@ -4,4 +4,14 @@
     <PackageReference Include="Grpc.AspNetCore" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Shared\src\Infrastructure\Grpc\Makc2025.Dummy.Shared.Infrastructure.Grpc.csproj" />
+    <ProjectReference Include="..\..\DomainUseCases\Makc2025.Dummy.Gateway.DomainUseCases.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Protobuf Include="App\AppService.proto" GrpcServices="Client" />
+    <Protobuf Include="DummyItem\DummyItemService.proto" GrpcServices="Client" />
+  </ItemGroup>
+
 </Project>

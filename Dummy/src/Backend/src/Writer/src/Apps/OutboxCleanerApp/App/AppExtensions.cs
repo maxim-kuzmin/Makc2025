@@ -22,11 +22,8 @@ public static class AppExtensions
     var services = appBuilder.Services.Configure<AppConfigOptions>(appConfigSection)
       .AddAppDomainModel(logger)
       .AddAppDomainUseCases(logger)
-      .AddAppInfrastructureTiedToEntityFramework(
-        logger,
-        appConfigOptions.PostgreSQL,
-        appBuilder.Configuration)
-      .AddAppInfrastructureTiedToCore(logger, appBuilder.Configuration);
+      .AddAppInfrastructureTiedToCore(logger, appBuilder.Configuration)
+      .AddAppInfrastructureTiedToEntityFramework(logger, appConfigOptions.PostgreSQL, appBuilder.Configuration);
 
     services.AddHostedService<AppService>();
 

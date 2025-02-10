@@ -1,4 +1,6 @@
-﻿namespace Makc2025.Dummy.Writer.Apps.WebApp.App;
+﻿using Ardalis.GuardClauses;
+
+namespace Makc2025.Dummy.Writer.Apps.WebApp.App;
 
 /// <summary>
 /// Расширения приложения.
@@ -26,48 +28,42 @@ public static class AppExtensions
     var services = appBuilder.Services.Configure<AppConfigOptions>(appConfigSection)
       .AddAppDomainModel(logger)
       .AddAppDomainUseCases(logger)
+      .AddAppInfrastructureTiedToCore(logger, appBuilder.Configuration)
+      .AddAppInfrastructureTiedToEntityFramework(logger, appConfigOptions.PostgreSQL, appBuilder.Configuration)
       .AddAppInfrastructureTiedToAuthentication(logger, appConfigSectionAuthentication)
-      .AddAppInfrastructureTiedToRabbitMQ(logger, appConfigSectionRabbitMQ)
-      .AddAppInfrastructureTiedToEntityFramework(
-        logger,
-        appConfigOptions.PostgreSQL,
-        appBuilder.Configuration)
-      .AddAppInfrastructureTiedToCore(logger, appBuilder.Configuration);
-    
+      .AddAppInfrastructureTiedToGrpc(logger)
+      .AddAppInfrastructureTiedToRabbitMQ(logger, appConfigSectionRabbitMQ);
+
     services.Configure<CookiePolicyOptions>(options =>
     {
       options.CheckConsentNeeded = context => true;
       options.MinimumSameSitePolicy = SameSiteMode.None;
     });
 
-    services.AddAppInfrastructureTiedToGRPC(logger);
-
     services.AddFastEndpoints();
 
-    var authentication = appConfigOptions.Authentication;
+    var authentication = Guard.Against.Null(appConfigOptions.Authentication);
 
-    if (authentication != null)
-    {
-      services.AddAuthorization()
-        .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
-        .AddJwtBearer(options =>
+    services
+      .AddAuthorization()
+      .AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+      .AddJwtBearer(options =>
+      {
+        byte[] keyBytes = Encoding.UTF8.GetBytes(authentication.Key);
+
+        var issuerSigningKey = authentication.GetSymmetricSecurityKey();
+
+        options.TokenValidationParameters = new TokenValidationParameters
         {
-          byte[] keyBytes = Encoding.UTF8.GetBytes(authentication.Key);
-
-          var issuerSigningKey = authentication.GetSymmetricSecurityKey();
-
-          options.TokenValidationParameters = new TokenValidationParameters
-          {
-            ValidateIssuer = true,
-            ValidIssuer = authentication.Issuer,
-            ValidateAudience = true,
-            ValidAudience = authentication.Audience,
-            ValidateLifetime = true,
-            IssuerSigningKey = issuerSigningKey,
-            ValidateIssuerSigningKey = true
-          };
-        });
-    }
+          ValidateIssuer = true,
+          ValidIssuer = authentication.Issuer,
+          ValidateAudience = true,
+          ValidAudience = authentication.Audience,
+          ValidateLifetime = true,
+          IssuerSigningKey = issuerSigningKey,
+          ValidateIssuerSigningKey = true
+        };
+      });
 
     services.SwaggerDocument(options =>
     {
@@ -119,7 +115,7 @@ public static class AppExtensions
       .UseMiddleware<AppTracingMiddleware>()
       .UseMiddleware<AppSessionMiddleware>();
 
-    app.UseAppInfrastructureTiedToGRPC(logger);
+    app.UseAppInfrastructureTiedToGrpc(logger);
 
     app.UseFastEndpoints().UseSwaggerGen(); // Includes AddFileServer and static files middleware
 

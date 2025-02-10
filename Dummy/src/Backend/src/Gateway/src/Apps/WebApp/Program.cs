@@ -6,20 +6,13 @@ try
 
   AppEnvironment.LoadVariables();
 
-  var builder = WebApplication.CreateBuilder(args);
+  var appBuilder = WebApplication.CreateBuilder(args);
 
-  var appConfigSection = builder.Configuration.GetSection(AppConfigOptions.SectionKey);
+  appBuilder.AddAppUI(logger);
 
-  var appConfigOptions = appConfigSection.CreateAppConfigOptions();
+  var app = appBuilder.Build();
 
-  builder.Services    
-    .AddAppDomainUseCasesLayer(logger)
-    .AddAppInfrastructureLayer(logger, appConfigOptions, builder.Configuration, appConfigSection)
-    .AddAppUILayer(logger, appConfigOptions);
-
-  var app = builder.Build();
-
-  app.UseAppUILayer(logger);
+  app.UseAppUI(logger);
 
   app.Run();
 }
