@@ -1,0 +1,39 @@
+﻿namespace Makc2025.Dummy.Writer.Infrastructure.Authentication.App.Action.Command;
+
+/// <summary>
+/// Сервис команд действия с приложением.
+/// </summary>
+/// <param name="_appConfigOptionsAuthentication">Раздел аутентификации в параметрах конфигурации приложения.</param>
+public class AppActionCommandService(
+  IOptionsSnapshot<AppConfigOptionsAuthentication> _appConfigOptionsAuthentication) : IAppActionCommandService
+{
+  /// <inheritdoc/>
+  public Task<Result<AppLoginActionDTO>> Login(AppLoginActionCommand command, CancellationToken cancellationToken)
+  {
+    var configOptions = _appConfigOptionsAuthentication.Value;
+
+    var claims = new List<Claim>
+    {
+      new(ClaimTypes.Name, command.UserName)
+    };
+
+    var issuerSigningKey = configOptions.GetSymmetricSecurityKey();
+
+    var signingCredentials = new SigningCredentials(issuerSigningKey, SecurityAlgorithms.HmacSha256);
+
+    var expires = DateTime.UtcNow.Add(TimeSpan.FromDays(1));
+
+    var token = new JwtSecurityToken(
+      issuer: configOptions.Issuer,
+      audience: configOptions.Audience,
+      claims: claims,
+      expires: expires,
+      signingCredentials: signingCredentials);
+
+    var accessToken = new JwtSecurityTokenHandler().WriteToken(token);
+
+    var dto = new AppLoginActionDTO(command.UserName, accessToken);
+
+    return Task.FromResult(Result.Success(dto));
+  }
+}
