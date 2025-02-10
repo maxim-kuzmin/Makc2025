@@ -1,5 +1,0 @@
-﻿<Project Sdk="Microsoft.NET.Sdk">
-  <ItemGroup>
-    <ProjectReference Include="..\Core\Makc2025.Dummy.Shared.Core.csproj" />
-  </ItemGroup>
-</Project>
