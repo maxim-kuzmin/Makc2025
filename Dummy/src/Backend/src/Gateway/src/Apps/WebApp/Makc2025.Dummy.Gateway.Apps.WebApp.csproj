@@ -24,6 +24,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Shared\src\Apps\WebApp\Makc2025.Dummy.Shared.Apps.WebApp.csproj" />
+    <ProjectReference Include="..\..\..\..\Shared\src\Infrastructure\Jwt\Makc2025.Dummy.Shared.Infrastructure.Jwt.csproj" />
     <ProjectReference Include="..\..\Infrastructure\Core\Makc2025.Dummy.Gateway.Infrastructure.Core.csproj" />
     <ProjectReference Include="..\..\Infrastructure\Grpc\Makc2025.Dummy.Gateway.Infrastructure.Grpc.csproj" />
     <ProjectReference Include="..\..\Infrastructure\Http\Makc2025.Dummy.Gateway.Infrastructure.Http.csproj" />

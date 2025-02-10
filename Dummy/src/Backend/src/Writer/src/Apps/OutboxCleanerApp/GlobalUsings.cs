@@ -1,4 +1,5 @@
-﻿global using Makc2025.Dummy.Shared.Core.App;
+﻿global using Ardalis.GuardClauses;
+global using Makc2025.Dummy.Shared.Core.App;
 global using Makc2025.Dummy.Writer.Apps.OutboxCleanerApp.App;
 global using Makc2025.Dummy.Writer.Apps.OutboxCleanerApp.App.Config;
 global using Makc2025.Dummy.Writer.DomainModel.App;

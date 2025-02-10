@@ -6,21 +6,26 @@
 public static class AppExtensions
 {
   /// <summary>
-  /// Добавить уровень пользовательского интерфейса приложения.
+  /// Построить приложение.
   /// </summary>
-  /// <param name="services">Сервисы.</param>
+  /// <param name="appBuilder">Построитель приложения.</param>
   /// <param name="logger">Логгер.</param>
-  /// <param name="appConfigOptions">Параметры конфигурации приложения.</param>
-  /// <returns>Сервисы.</returns>
-  public static IServiceCollection AddAppUILayer(
-    this IServiceCollection services,
-    ILogger logger,
-    AppConfigOptions appConfigOptions)
+  /// <returns>Приложение.</returns>
+  public static IHost BuildApp(this HostApplicationBuilder appBuilder, ILogger logger)
   {
+    var appConfigSection = appBuilder.Configuration.GetSection("App");
+
+    var appConfigOptions = new AppConfigOptions();
+
+    appConfigSection.Bind(appConfigOptions);
+
+    var services = appBuilder.Services.Configure<AppConfigOptions>(appConfigSection)
+      .AddAppInfrastructureTiedToCore(logger, appBuilder.Configuration);
+
     services.AddHostedService<AppService>();
 
-    logger.LogInformation("UI layer added");
+    logger.LogInformation("App is ready to build");
 
-    return services;
+    return appBuilder.Build();
   }
 }

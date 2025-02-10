@@ -1,11 +1,13 @@
 ﻿global using System.Globalization;
 global using System.Text;
+global using Ardalis.GuardClauses;
 global using Ardalis.Result.AspNetCore;
 global using FastEndpoints;
 global using FastEndpoints.Swagger;
 global using Makc2025.Dummy.Shared.Apps.WebApp.App.Middlewares;
 global using Makc2025.Dummy.Shared.Core.App;
 global using Makc2025.Dummy.Shared.DomainUseCases.Query;
+global using Makc2025.Dummy.Shared.Infrastructure.Jwt.App.Config.Options;
 global using Makc2025.Dummy.Writer.Apps.WebApp.App;
 global using Makc2025.Dummy.Writer.Apps.WebApp.App.Config;
 global using Makc2025.Dummy.Writer.DomainModel.App;
@@ -33,7 +35,6 @@ global using Makc2025.Dummy.Writer.DomainUseCases.DummyItem.Actions.GetList.Quer
 global using Makc2025.Dummy.Writer.DomainUseCases.DummyItem.Actions.Update;
 global using Makc2025.Dummy.Writer.DomainUseCases.DummyItem.DTOs;
 global using Makc2025.Dummy.Writer.Infrastructure.Authentication.App;
-global using Makc2025.Dummy.Writer.Infrastructure.Authentication.App.Config.Options;
 global using Makc2025.Dummy.Writer.Infrastructure.Core.App;
 global using Makc2025.Dummy.Writer.Infrastructure.EntityFramework.App;
 global using Makc2025.Dummy.Writer.Infrastructure.EntityFramework.App.Config.Options;

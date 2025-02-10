@@ -6,12 +6,12 @@
 public static class AppExtensions
 {
   /// <summary>
-  /// Добавить пользовательский интерфейс приложения.
+  /// Построить приложение.
   /// </summary>
   /// <param name="appBuilder">Построитель приложения.</param>
   /// <param name="logger">Логгер.</param>
-  /// <returns>Сервисы.</returns>
-  public static IServiceCollection AddAppUI(this WebApplicationBuilder appBuilder, ILogger logger)
+  /// <returns>Приложение.</returns>
+  public static WebApplication BuildApp(this WebApplicationBuilder appBuilder, ILogger logger)
   {
     var appConfigSection = appBuilder.Configuration.GetSection("App");
 
@@ -75,18 +75,18 @@ public static class AppExtensions
       options.EnableJWTBearerAuth = true;
     });
 
-    logger.LogInformation("Added app UI");
+    logger.LogInformation("App is ready to build");
 
-    return services;
+    return appBuilder.Build();
   }
 
   /// <summary>
-  /// Использовать UI приложения.
+  /// Использовать приложение.
   /// </summary>
   /// <param name="app">Приложение.</param>
   /// <param name="logger">Логгер.</param>
   /// <returns>Приложение.</returns>
-  public static WebApplication UseAppUI(this WebApplication app, ILogger logger)
+  public static WebApplication UseApp(this WebApplication app, ILogger logger)
   {
     if (app.Environment.IsDevelopment())
     {
@@ -114,14 +114,15 @@ public static class AppExtensions
 
     app.UseHttpsRedirection();
 
-    app.UseAuthentication()
+    app
+      .UseAuthentication()
       .UseAuthorization()
       .UseMiddleware<AppTracingMiddleware>()
       .UseMiddleware<AppSessionMiddleware>();
 
     app.UseFastEndpoints().UseSwaggerGen(); // Includes AddFileServer and static files middleware    
 
-    logger.LogInformation("Used app UI");
+    logger.LogInformation("App is ready to run");
 
     return app;
   }

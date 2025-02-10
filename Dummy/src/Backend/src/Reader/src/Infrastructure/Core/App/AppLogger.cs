@@ -1,4 +1,4 @@
-﻿namespace Makc2025.Dummy.Reader.Infrastructure.App;
+﻿namespace Makc2025.Dummy.Reader.Infrastructure.Core.App;
 
 /// <summary>
 /// Логгер приложения.

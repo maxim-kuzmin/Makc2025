@@ -8,11 +8,9 @@ try
 
   var appBuilder = WebApplication.CreateBuilder(args);
 
-  appBuilder.AddAppUI(logger);
+  var app = appBuilder.BuildApp(logger);
 
-  var app = appBuilder.Build();
-
-  await app.UseAppUI(logger);
+  await app.UseApp(logger);
 
   app.Run();
 }

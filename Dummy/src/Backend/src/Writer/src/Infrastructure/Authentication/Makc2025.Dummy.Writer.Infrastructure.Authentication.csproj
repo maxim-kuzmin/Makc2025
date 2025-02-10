@@ -2,10 +2,10 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" />
-    <PackageReference Include="System.IdentityModel.Tokens.Jwt" />    
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\..\..\Shared\src\Infrastructure\Jwt\Makc2025.Dummy.Shared.Infrastructure.Jwt.csproj" />
     <ProjectReference Include="..\..\DomainUseCases\Makc2025.Dummy.Writer.DomainUseCases.csproj" />
   </ItemGroup>
 

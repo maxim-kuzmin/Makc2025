@@ -23,6 +23,7 @@ global using Makc2025.Dummy.Gateway.Infrastructure.Http.App;
 global using Makc2025.Dummy.Shared.Apps.WebApp.App.Middlewares;
 global using Makc2025.Dummy.Shared.Core.App;
 global using Makc2025.Dummy.Shared.DomainUseCases.Query;
+global using Makc2025.Dummy.Shared.Infrastructure.Jwt.App.Config.Options;
 global using MediatR;
 global using Microsoft.AspNetCore.Authentication.JwtBearer;
 global using Microsoft.IdentityModel.Logging;

@@ -8,9 +8,7 @@ try
 
   var appBuilder = Host.CreateApplicationBuilder(args);
 
-  appBuilder.AddAppUI(logger);
-
-  var app = appBuilder.Build();
+  var app = appBuilder.BuildApp(logger);
 
   app.Run();
 }

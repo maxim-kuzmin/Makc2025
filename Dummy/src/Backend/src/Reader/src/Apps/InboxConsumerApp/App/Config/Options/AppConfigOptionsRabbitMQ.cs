@@ -1,4 +1,4 @@
-﻿namespace Makc2025.Dummy.Reader.Infrastructure.App.Config.Options;
+﻿namespace Makc2025.Dummy.Reader.Apps.InboxConsumerApp.App.Config.Options;
 
 /// <summary>
 /// Секция RabbitMQ в параметрах конфигурации приложения.

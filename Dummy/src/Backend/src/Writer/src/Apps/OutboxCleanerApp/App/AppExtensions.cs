@@ -6,12 +6,12 @@
 public static class AppExtensions
 {
   /// <summary>
-  /// Добавить пользовательский интерфейс приложения.
+  /// Построить приложение.
   /// </summary>
   /// <param name="appBuilder">Построитель приложения.</param>
   /// <param name="logger">Логгер.</param>
-  /// <returns>Сервисы.</returns>
-  public static IServiceCollection AddAppUI(this HostApplicationBuilder appBuilder, ILogger logger)
+  /// <returns>Приложение.</returns>
+  public static IHost BuildApp(this HostApplicationBuilder appBuilder, ILogger logger)
   {
     var appConfigSection = appBuilder.Configuration.GetSection("App");
 
@@ -27,8 +27,8 @@ public static class AppExtensions
 
     services.AddHostedService<AppService>();
 
-    logger.LogInformation("Added app UI");
+    logger.LogInformation("App is ready to build");
 
-    return services;
+    return appBuilder.Build();
   }
 }

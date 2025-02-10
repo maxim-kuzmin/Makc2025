@@ -10,7 +10,7 @@ public static class AppExtensions
   /// </summary>
   /// <param name="services">Сервисы.</param>
   /// <param name="logger">Логгер.</param>
-  /// <param name="writerApiAddress">Адрес API микросервиса Writer.</param>
+  /// <param name="writerApiAddress">Адрес API писателя.</param>
   /// <returns>Сервисы.</returns>
   public static IServiceCollection AddAppInfrastructureTiedToGrpc(
       this IServiceCollection services,

@@ -16,21 +16,15 @@ public class AppService(ILogger<AppService> _logger, IServiceScopeFactory _servi
 
       var appConfigOptions = scope.ServiceProvider.GetRequiredService<IOptionsSnapshot<AppConfigOptions>>();
 
-      var rabbitMQ = appConfigOptions.Value.PostgreSQL;
+      var postgreSQL = Guard.Against.Null(appConfigOptions.Value.PostgreSQL);
 
-      if (rabbitMQ == null)
-      {
-        _logger.LogError("PostgreSQL configuration not found");
-
-        return;
-      }
-
-      _logger.LogInformation(rabbitMQ.ToString());
+      _logger.LogInformation("PostgreSQL: {postgreSQL}", postgreSQL);
 
       if (_logger.IsEnabled(LogLevel.Information))
       {
         _logger.LogInformation("Worker running at: {time}", DateTimeOffset.Now);
       }
+
       await Task.Delay(10000, stoppingToken);
     }
   }

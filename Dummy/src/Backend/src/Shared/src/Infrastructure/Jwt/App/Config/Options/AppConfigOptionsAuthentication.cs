@@ -1,7 +1,7 @@
-﻿namespace Makc2025.Dummy.Gateway.Apps.WebApp.App.Config.Options;
+﻿namespace Makc2025.Dummy.Shared.Infrastructure.Jwt.App.Config.Options;
 
 /// <summary>
-/// Аутентификация в параметрах конфигурации приложения.
+/// Раздел аутентификации в параметрах конфигурации приложения.
 /// </summary>
 /// <param name="Issuer">Издатель.</param>
 /// <param name="Audience">Аудитория.</param>
