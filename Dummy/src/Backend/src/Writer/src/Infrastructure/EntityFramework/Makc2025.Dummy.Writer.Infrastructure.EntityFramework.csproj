@@ -14,5 +14,9 @@
     <ProjectReference Include="..\..\..\..\Shared\src\Infrastructure\EntityFramework\Makc2025.Dummy.Shared.Infrastructure.EntityFramework.csproj" />
     <ProjectReference Include="..\..\DomainUseCases\Makc2025.Dummy.Writer.DomainUseCases.csproj" />
   </ItemGroup>
+  
+  <ItemGroup>
+    <Folder Include="App\Config\Options\" />
+  </ItemGroup>
 
 </Project>

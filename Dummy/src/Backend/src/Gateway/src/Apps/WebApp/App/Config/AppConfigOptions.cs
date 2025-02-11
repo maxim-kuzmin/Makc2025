@@ -3,15 +3,15 @@
 /// <summary>
 /// Параметры конфигурации приложения.
 /// </summary>
-public record AppConfigOptions
+public record AppConfigOptions : AppConfigOptionsBase
 {
   /// <summary>
   /// Аутентификация.
   /// </summary>
-  public AppConfigOptionsAuthentication? Authentication { get; set; }
+  public AppConfigOptionsAuthenticationSection? Authentication { get; set; }
 
   /// <summary>
   /// Писатель.
   /// </summary>
-  public AppConfigOptionsWriter? Writer { get; set; }
+  public AppConfigOptionsWriterSection? Writer { get; set; }
 }

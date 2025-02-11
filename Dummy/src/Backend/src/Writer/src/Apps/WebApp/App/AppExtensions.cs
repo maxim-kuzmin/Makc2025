@@ -23,6 +23,9 @@ public static class AppExtensions
 
     appConfigSection.Bind(appConfigOptions);
 
+    Thread.CurrentThread.CurrentUICulture =
+      Thread.CurrentThread.CurrentCulture = CultureInfo.GetCultureInfo(appConfigOptions.DefaultLanguage);
+
     var services = appBuilder.Services.Configure<AppConfigOptions>(appConfigSection)
       .AddAppDomainModel(logger)
       .AddAppDomainUseCases(logger)
@@ -95,11 +98,13 @@ public static class AppExtensions
       app.UseHsts();
     }
 
-    List<CultureInfo> supportedCultures = [new("ru"), new("en")];
+    var appConfigOptions = app.Services.GetRequiredService<AppConfigOptions>();
+
+    var supportedCultures = appConfigOptions.Languages.Select(CultureInfo.GetCultureInfo).ToList();
 
     var requestLocalizationOptions = new RequestLocalizationOptions
     {
-      DefaultRequestCulture = new("ru"),
+      DefaultRequestCulture = new(appConfigOptions.DefaultLanguage),
       SupportedCultures = supportedCultures,
       SupportedUICultures = supportedCultures
     };

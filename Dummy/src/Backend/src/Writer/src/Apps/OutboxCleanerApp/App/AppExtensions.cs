@@ -1,4 +1,6 @@
-﻿namespace Makc2025.Dummy.Writer.Apps.OutboxCleanerApp.App;
+﻿using System.Globalization;
+
+namespace Makc2025.Dummy.Writer.Apps.OutboxCleanerApp.App;
 
 /// <summary>
 /// Расширения приложения.
@@ -18,6 +20,9 @@ public static class AppExtensions
     var appConfigOptions = new AppConfigOptions();
 
     appConfigSection.Bind(appConfigOptions);
+
+    Thread.CurrentThread.CurrentUICulture =
+      Thread.CurrentThread.CurrentCulture = CultureInfo.GetCultureInfo(appConfigOptions.DefaultLanguage);
 
     var services = appBuilder.Services.Configure<AppConfigOptions>(appConfigSection)
       .AddAppDomainModel(logger)

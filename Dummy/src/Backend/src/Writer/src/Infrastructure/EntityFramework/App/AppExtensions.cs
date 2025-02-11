@@ -16,7 +16,7 @@ public static class AppExtensions
   public static IServiceCollection AddAppInfrastructureTiedToEntityFramework(
     this IServiceCollection services,
     ILogger logger,
-    AppConfigOptionsPostgreSQL? appConfigOptionsPostgreSQL,
+    AppConfigOptionsPostgreSQLSection? appConfigOptionsPostgreSQL,
     IConfiguration configuration)
   {
     if (appConfigOptionsPostgreSQL != null)

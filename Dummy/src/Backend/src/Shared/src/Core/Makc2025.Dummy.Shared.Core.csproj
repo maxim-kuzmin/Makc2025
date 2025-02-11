@@ -4,5 +4,6 @@
     <PackageReference Include="Ardalis.SharedKernel" />
     <PackageReference Include="DotEnv.Core" />
     <PackageReference Include="Microsoft.Extensions.Localization.Abstractions" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" />
   </ItemGroup>
 </Project>

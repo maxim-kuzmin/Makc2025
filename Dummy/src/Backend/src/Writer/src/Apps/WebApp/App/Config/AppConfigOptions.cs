@@ -3,30 +3,20 @@
 /// <summary>
 /// Параметры конфигурации приложения.
 /// </summary>
-public class AppConfigOptions
+public record AppConfigOptions : AppConfigOptionsBase
 {
   /// <summary>
   /// Аутентификация.
   /// </summary>
-  public AppConfigOptionsAuthentication? Authentication { get; set; }
-
-  /// <summary>
-  /// Повтор включён оркестратором.
-  /// </summary>
-  public bool IsRetryEnabledByOrchestrator { get; set; }
-
-  /// <summary>
-  /// Язык.
-  /// </summary>
-  public string Language { get; set; } = "ru";
+  public AppConfigOptionsAuthenticationSection? Authentication { get; set; }
 
   /// <summary>
   /// База данных PostgreSQL.
   /// </summary>
-  public AppConfigOptionsPostgreSQL? PostgreSQL { get; set; }
+  public AppConfigOptionsPostgreSQLSection? PostgreSQL { get; set; }
 
   /// <summary>
   /// Брокер сообщений RabbitMQ.
   /// </summary>
-  public AppConfigOptionsRabbitMQ? RabbitMQ { get; set; }
+  public AppConfigOptionsRabbitMQSection? RabbitMQ { get; set; }
 }

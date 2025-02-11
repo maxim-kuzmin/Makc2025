@@ -17,7 +17,7 @@ public static class AppExtensions
     ILogger logger,
     IConfigurationSection appConfigSectionAuthentication)
   {
-    services.Configure<AppConfigOptionsAuthentication>(appConfigSectionAuthentication);
+    services.Configure<AppConfigOptionsAuthenticationSection>(appConfigSectionAuthentication);
 
     services.AddTransient<IAppActionCommandService, AppActionCommandService>();
 

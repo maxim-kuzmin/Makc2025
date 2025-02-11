@@ -1,7 +1,7 @@
 ﻿global using System.IdentityModel.Tokens.Jwt;
 global using System.Security.Claims;
 global using Ardalis.Result;
-global using Makc2025.Dummy.Shared.Infrastructure.Jwt.App.Config.Options;
+global using Makc2025.Dummy.Shared.Core.App.Config.Options.Sections;
 global using Makc2025.Dummy.Writer.DomainUseCases.App.Action.Command;
 global using Makc2025.Dummy.Writer.DomainUseCases.App.Actions.Login;
 global using Makc2025.Dummy.Writer.Infrastructure.Authentication.App.Action.Command;

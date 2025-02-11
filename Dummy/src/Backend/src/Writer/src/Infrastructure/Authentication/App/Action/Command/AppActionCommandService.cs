@@ -5,7 +5,7 @@
 /// </summary>
 /// <param name="_appConfigOptionsAuthentication">Раздел аутентификации в параметрах конфигурации приложения.</param>
 public class AppActionCommandService(
-  IOptionsSnapshot<AppConfigOptionsAuthentication> _appConfigOptionsAuthentication) : IAppActionCommandService
+  IOptionsSnapshot<AppConfigOptionsAuthenticationSection> _appConfigOptionsAuthentication) : IAppActionCommandService
 {
   /// <inheritdoc/>
   public Task<Result<AppLoginActionDTO>> Login(AppLoginActionCommand command, CancellationToken cancellationToken)

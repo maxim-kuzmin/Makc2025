@@ -4,8 +4,7 @@
     <PackageReference Include="Microsoft.Extensions.Options.ConfigurationExtensions" />
   </ItemGroup>
 
-  <ItemGroup>
-    <ProjectReference Include="..\..\..\..\Shared\src\Infrastructure\Jwt\Makc2025.Dummy.Shared.Infrastructure.Jwt.csproj" />
+  <ItemGroup>    
     <ProjectReference Include="..\..\DomainUseCases\Makc2025.Dummy.Writer.DomainUseCases.csproj" />
   </ItemGroup>
 

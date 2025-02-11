@@ -1,4 +1,4 @@
-﻿namespace Makc2025.Dummy.Writer.Infrastructure.EntityFramework.App.Config.Options;
+﻿namespace Makc2025.Dummy.Shared.Core.App.Config.Options.Sections;
 
 /// <summary>
 /// Раздел PostgreSQL в параметрах конфигурации приложения.
@@ -9,7 +9,7 @@
 /// <param name="Port">Порт.</param>
 /// <param name="Server">Сервер.</param>
 /// <param name="UserId">Идентификатор пользователя.</param>
-public record AppConfigOptionsPostgreSQL(
+public record AppConfigOptionsPostgreSQLSection(
   string ConnectionStringName,
   string Database,
   string Password,

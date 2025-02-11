@@ -1,4 +1,4 @@
-﻿namespace Makc2025.Dummy.Gateway.Apps.WebApp.App;
+﻿namespace Makc2025.Dummy.Shared.Core.App;
 
 /// <summary>
 /// Транспорт приложения.

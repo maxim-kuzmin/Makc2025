@@ -17,7 +17,7 @@ public static class AppExtensions
     ILogger logger,
     IConfigurationSection appConfigSectionRabbitMQ)
   {
-    services.Configure<AppConfigOptionsRabbitMQ>(appConfigSectionRabbitMQ);
+    services.Configure<AppConfigOptionsRabbitMQSection>(appConfigSectionRabbitMQ);
 
     logger.LogInformation("Added app infrastructure tied to RabbitMQ");
 
