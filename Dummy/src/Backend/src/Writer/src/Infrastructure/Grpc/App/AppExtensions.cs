@@ -21,7 +21,7 @@ public static class AppExtensions
       options.EnableDetailedErrors = true;
     });
 
-    logger.LogInformation("Added app infrastructure tied to Grpc");
+    logger.LogInformation("Added application infrastructure tied to Grpc");
 
     return services;
   }
@@ -39,7 +39,7 @@ public static class AppExtensions
     app.MapGrpcService<AppEventPayloadService>();
     app.MapGrpcService<DummyItemService>();
 
-    logger.LogInformation("Used app infrastructure tied to Grpc");
+    logger.LogInformation("Used application infrastructure tied to Grpc");
 
     return app;
   }

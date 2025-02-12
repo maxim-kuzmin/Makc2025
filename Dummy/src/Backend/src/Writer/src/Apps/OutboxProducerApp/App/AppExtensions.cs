@@ -35,7 +35,7 @@ public static class AppExtensions
 
     services.AddHostedService<AppService>();
 
-    logger.LogInformation("App is ready to build");
+    logger.LogInformation("Application is ready to build");
 
     return appBuilder.Build();
   }

@@ -19,7 +19,7 @@ public static class AppExtensions
   {
     services.Configure<AppConfigOptionsRabbitMQSection>(appConfigSectionRabbitMQ);
 
-    logger.LogInformation("Added app infrastructure tied to RabbitMQ");
+    logger.LogInformation("Added application infrastructure tied to RabbitMQ");
 
     return services;
   }

@@ -3,20 +3,38 @@
 /// <summary>
 /// Раздел базы данных PostgreSQL в параметрах конфигурации приложения.
 /// </summary>
-/// <param name="ConnectionStringName">Имя строки подключения.</param>
-/// <param name="Database">База данных.</param>
-/// <param name="Password">Пароль.</param>
-/// <param name="Port">Порт.</param>
-/// <param name="Server">Сервер.</param>
-/// <param name="UserId">Идентификатор пользователя.</param>
-public record AppConfigOptionsPostgreSQLSection(
-  string ConnectionStringName,
-  string Database,
-  string Password,
-  int Port,
-  string Server,
-  string UserId)
+public record AppConfigOptionsPostgreSQLSection
 {
+  /// <summary>
+  /// Имя строки подключения.
+  /// </summary>
+  public string ConnectionStringName { get; set; } = string.Empty;
+
+  /// <summary>
+  /// База данных.
+  /// </summary>
+  public string Database { get; set; } = string.Empty;
+
+  /// <summary>
+  /// Пароль.
+  /// </summary>
+  public string Password { get; set; } = string.Empty;
+
+  /// <summary>
+  /// Порт.
+  /// </summary>
+  public int Port { get; set; }
+
+  /// <summary>
+  /// Сервер.
+  /// </summary>
+  public string Server { get; set; } = string.Empty;
+
+  /// <summary>
+  /// Идентификатор пользователя.
+  /// </summary>
+  public string UserId { get; set; } = string.Empty;
+
   /// <summary>
   /// Преобразовать к строке подключения.
   /// </summary>

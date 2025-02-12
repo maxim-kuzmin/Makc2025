@@ -59,7 +59,7 @@ public static class AppExtensions
     services.AddTransient<IAppEventPayloadActionQueryService, AppEventPayloadActionQueryService>();
     services.AddTransient<IDummyItemActionQueryService, DummyItemActionQueryService>();
 
-    logger.LogInformation("Added app infrastructure tied to Entity Framework");
+    logger.LogInformation("Added application infrastructure tied to Entity Framework");
 
     return services;
   }
@@ -87,7 +87,7 @@ public static class AppExtensions
 
       await AppData.InitializeAsync(context).ConfigureAwait(false);
 
-      logger.LogInformation("Used app infrastructure tied to Entity Framework");
+      logger.LogInformation("Used application infrastructure tied to Entity Framework");
     }
     catch (Exception ex)
     {

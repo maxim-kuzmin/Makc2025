@@ -17,7 +17,7 @@ public static class AppExtensions
     services.AddSingleton<IAppEventPayloadFactory, AppEventPayloadFactory>();
     services.AddSingleton<IDummyItemFactory, DummyItemFactory>();
 
-    logger.LogInformation("Added domain model");
+    logger.LogInformation("Added application domain model");
 
     return services;
   }

@@ -3,7 +3,20 @@
 /// <summary>
 /// Раздел микросервиса Writer в параметрах конфигурации приложения.
 /// </summary>
-/// <param name="GrpcApiAddress">Адрес API gRPC.</param>
-/// <param name="RestApiAddress">Адрес API REST.</param>
-/// <param name="Transport">Транспорт.</param>
-public record AppConfigOptionsWriterSection(string GrpcApiAddress, string RestApiAddress, AppTransport Transport);
+public record AppConfigOptionsWriterSection
+{
+  /// <summary>
+  /// Адрес API gRPC.
+  /// </summary>
+  public string GrpcApiAddress { get; set; } = string.Empty;
+
+  /// <summary>
+  /// Адрес API REST.
+  /// </summary>
+  public string RestApiAddress { get; set; } = string.Empty;
+
+  /// <summary>
+  /// Транспорт.
+  /// </summary>
+  public AppTransport Transport { get; set; } = AppTransport.Grpc;
+}

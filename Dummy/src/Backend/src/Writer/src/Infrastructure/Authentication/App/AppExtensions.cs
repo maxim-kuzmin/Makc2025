@@ -21,7 +21,7 @@ public static class AppExtensions
 
     services.AddTransient<IAppActionCommandService, AppActionCommandService>();
 
-    logger.LogInformation("Added app infrastructure tied to authentication");
+    logger.LogInformation("Added application infrastructure tied to authentication");
 
     return services;
   }

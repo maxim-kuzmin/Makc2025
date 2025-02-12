@@ -14,11 +14,11 @@ public class AppService(ILogger<AppService> _logger, IServiceScopeFactory _servi
     {
       using IServiceScope scope = _serviceScopeFactory.CreateScope();
 
-      var appConfigOptions = scope.ServiceProvider.GetRequiredService<IOptionsSnapshot<AppConfigOptions>>();
+      var appConfigOptionsSnapshot = scope.ServiceProvider.GetRequiredService<IOptionsSnapshot<AppConfigOptions>>();
 
-      var postgreSQL = Guard.Against.Null(appConfigOptions.Value.PostgreSQL);
+      var appConfigOptionsPostgreSQLSection = Guard.Against.Null(appConfigOptionsSnapshot.Value.PostgreSQL);
 
-      _logger.LogInformation("PostgreSQL: {postgreSQL}", postgreSQL);
+      _logger.LogInformation("PostgreSQL: {appConfigOptionsPostgreSQLSection}", appConfigOptionsPostgreSQLSection);
 
       if (_logger.IsEnabled(LogLevel.Information))
       {

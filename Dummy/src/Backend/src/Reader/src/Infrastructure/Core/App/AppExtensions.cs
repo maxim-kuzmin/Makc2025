@@ -23,7 +23,7 @@ public static class AppExtensions
 
     services.AddScoped<AppSession>();
 
-    logger.LogInformation("Added app infrastructure tied to Core");
+    logger.LogInformation("Added application infrastructure tied to Core");
 
     return services;
   }

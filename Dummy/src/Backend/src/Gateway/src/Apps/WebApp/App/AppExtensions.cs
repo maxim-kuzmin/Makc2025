@@ -1,4 +1,6 @@
-﻿namespace Makc2025.Dummy.Gateway.Apps.WebApp.App;
+﻿using Microsoft.Extensions.Options;
+
+namespace Makc2025.Dummy.Gateway.Apps.WebApp.App;
 
 /// <summary>
 /// Расширения приложения.
@@ -78,7 +80,7 @@ public static class AppExtensions
       options.EnableJWTBearerAuth = true;
     });
 
-    logger.LogInformation("App is ready to build");
+    logger.LogInformation("Application is ready to build");
 
     return appBuilder.Build();
   }
@@ -104,7 +106,9 @@ public static class AppExtensions
       app.UseHsts();
     }
 
-    var appConfigOptions = app.Services.GetRequiredService<AppConfigOptions>();
+    var appConfigOptionsMonitor = app.Services.GetRequiredService<IOptionsMonitor<AppConfigOptions>>();
+
+    var appConfigOptions = appConfigOptionsMonitor.CurrentValue;
 
     var supportedCultures = appConfigOptions.Languages.Select(CultureInfo.GetCultureInfo).ToList();
 
@@ -127,7 +131,7 @@ public static class AppExtensions
 
     app.UseFastEndpoints().UseSwaggerGen(); // Includes AddFileServer and static files middleware    
 
-    logger.LogInformation("App is ready to run");
+    logger.LogInformation("Application is ready to run");
 
     return app;
   }

@@ -27,7 +27,7 @@ public static class AppExtensions
     services.AddTransient<IAppEventPayloadResources, AppEventPayloadResources>();
     services.AddTransient<IDummyItemResources, DummyItemResources>();
 
-    logger.LogInformation("Added app infrastructure tied to Core");
+    logger.LogInformation("Added application infrastructure tied to Core");
 
     return services;
   }

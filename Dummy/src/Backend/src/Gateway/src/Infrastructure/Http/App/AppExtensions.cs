@@ -36,7 +36,7 @@ public static class AppExtensions
         ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
       });
 
-    logger.LogInformation("Added app infrastructure tied to Http");
+    logger.LogInformation("Added application infrastructure tied to Http");
 
     return services;
   }

@@ -14,15 +14,15 @@ public class AppService(ILogger<AppService> _logger, IServiceScopeFactory _servi
     {
       using IServiceScope scope = _serviceScopeFactory.CreateScope();
 
-      var appConfigOptions = scope.ServiceProvider.GetRequiredService<IOptionsSnapshot<AppConfigOptions>>();
+      var appConfigOptionsSnapshot = scope.ServiceProvider.GetRequiredService<IOptionsSnapshot<AppConfigOptions>>();
 
-      var postgreSQL = Guard.Against.Null(appConfigOptions.Value.PostgreSQL);
+      var appConfigOptionsPostgreSQLSection = Guard.Against.Null(appConfigOptionsSnapshot.Value.PostgreSQL);
 
-      _logger.LogInformation("PostgreSQL: {postgreSQL}", postgreSQL);
+      _logger.LogInformation("PostgreSQL: {appConfigOptionsPostgreSQLSection}", appConfigOptionsPostgreSQLSection);
 
-      var rabbitMQ = Guard.Against.Null(appConfigOptions.Value.RabbitMQ);
+      var appConfigOptionsRabbitMQSection = Guard.Against.Null(appConfigOptionsSnapshot.Value.RabbitMQ);
 
-      _logger.LogInformation("RabbitMQ: {rabbitMQ}", rabbitMQ);
+      _logger.LogInformation("RabbitMQ: {appConfigOptionsRabbitMQSection}", appConfigOptionsRabbitMQSection);
 
       if (_logger.IsEnabled(LogLevel.Information))
       {

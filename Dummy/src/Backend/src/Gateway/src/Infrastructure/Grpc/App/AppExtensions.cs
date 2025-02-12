@@ -45,7 +45,7 @@ public static class AppExtensions
         grpcChannelOptions.UnsafeUseInsecureChannelCallCredentials = true;
       });
 
-    logger.LogInformation("Added app infrastructure tied to Grpc");
+    logger.LogInformation("Added application infrastructure tied to Grpc");
 
     return services;
   }
