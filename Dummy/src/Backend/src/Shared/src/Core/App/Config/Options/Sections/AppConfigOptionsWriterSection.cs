@@ -6,17 +6,17 @@
 public record AppConfigOptionsWriterSection
 {
   /// <summary>
-  /// Адрес API gRPC.
+  /// Тип API.
+  /// </summary>
+  public AppInfrastructure ApiType { get; set; } = AppInfrastructure.Grpc;
+
+  /// <summary>
+  /// Адрес gRPC API.
   /// </summary>
   public string GrpcApiAddress { get; set; } = string.Empty;
 
   /// <summary>
-  /// Адрес API REST.
+  /// Адрес HTTP REST API.
   /// </summary>
-  public string RestApiAddress { get; set; } = string.Empty;
-
-  /// <summary>
-  /// Транспорт.
-  /// </summary>
-  public AppTransport Transport { get; set; } = AppTransport.Grpc;
+  public string HttpApiAddress { get; set; } = string.Empty;
 }

@@ -5,7 +5,7 @@ services:
     environment:
       - App__Authentication__Key=${MY_SERVICE_BACKEND_GATEWAY_WEB_APP_CONFIG_AUTHENTICATION_KEY}
       - App__Writer__GrpcApiAddress=${MY_SERVICE_BACKEND_GATEWAY_WEB_APP_CONFIG_WRITER_GRPC_API_ADDRESS}
-      - App__Writer__RestApiAddress=${MY_SERVICE_BACKEND_GATEWAY_WEB_APP_CONFIG_WRITER_REST_API_ADDRESS}
+      - App__Writer__HttpApiAddress=${MY_SERVICE_BACKEND_GATEWAY_WEB_APP_CONFIG_WRITER_HTTP_API_ADDRESS}
     networks:
       - network-backend
 

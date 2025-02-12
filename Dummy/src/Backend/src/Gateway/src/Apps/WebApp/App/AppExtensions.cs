@@ -31,12 +31,12 @@ public static class AppExtensions
 
     var writer = Guard.Against.Null(appConfigOptions.Writer);
 
-    switch (writer.Transport)
+    switch (writer.ApiType)
     {
-      case AppTransport.Http:
-        services.AddAppInfrastructureTiedToHttp(logger, writer.RestApiAddress);
+      case AppInfrastructure.Http:
+        services.AddAppInfrastructureTiedToHttp(logger, writer.HttpApiAddress);
         break;
-      case AppTransport.Grpc:      
+      case AppInfrastructure.Grpc:      
         services.AddAppInfrastructureTiedToGrpc(logger, writer.GrpcApiAddress);
         break;
       default:

@@ -1,9 +1,9 @@
 ﻿namespace Makc2025.Dummy.Shared.Core.App;
 
 /// <summary>
-/// Транспорт приложения.
+/// Инфраструктура приложения.
 /// </summary>
-public enum AppTransport
+public enum AppInfrastructure
 {
   /// <summary>
   /// gRPC.
@@ -11,7 +11,7 @@ public enum AppTransport
   Grpc = 1,
 
   /// <summary>
-  /// HTTP.
+  /// HTTP REST.
   /// </summary>
   Http,
 }
