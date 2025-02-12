@@ -1,7 +1,7 @@
 ﻿namespace Makc2025.Dummy.Shared.Core.App.Config.Options.Sections;
 
 /// <summary>
-/// Раздел PostgreSQL в параметрах конфигурации приложения.
+/// Раздел базы данных PostgreSQL в параметрах конфигурации приложения.
 /// </summary>
 /// <param name="ConnectionStringName">Имя строки подключения.</param>
 /// <param name="Database">База данных.</param>
