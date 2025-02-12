@@ -23,7 +23,6 @@
   
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Shared\src\Apps\WebApp\Makc2025.Dummy.Shared.Apps.WebApp.csproj" />
-    <ProjectReference Include="..\..\Infrastructure\Authentication\Makc2025.Dummy.Writer.Infrastructure.Authentication.csproj" />
     <ProjectReference Include="..\..\Infrastructure\Core\Makc2025.Dummy.Writer.Infrastructure.Core.csproj" />
     <ProjectReference Include="..\..\Infrastructure\EntityFramework\Makc2025.Dummy.Writer.Infrastructure.EntityFramework.csproj" />
     <ProjectReference Include="..\..\Infrastructure\Grpc\Makc2025.Dummy.Writer.Infrastructure.Grpc.csproj" />

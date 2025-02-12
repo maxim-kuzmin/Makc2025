@@ -35,7 +35,6 @@ global using Makc2025.Dummy.Writer.DomainUseCases.DummyItem.Actions.GetList;
 global using Makc2025.Dummy.Writer.DomainUseCases.DummyItem.Actions.GetList.Query;
 global using Makc2025.Dummy.Writer.DomainUseCases.DummyItem.Actions.Update;
 global using Makc2025.Dummy.Writer.DomainUseCases.DummyItem.DTOs;
-global using Makc2025.Dummy.Writer.Infrastructure.Authentication.App;
 global using Makc2025.Dummy.Writer.Infrastructure.Core.App;
 global using Makc2025.Dummy.Writer.Infrastructure.EntityFramework.App;
 global using Makc2025.Dummy.Writer.Infrastructure.Grpc.App;

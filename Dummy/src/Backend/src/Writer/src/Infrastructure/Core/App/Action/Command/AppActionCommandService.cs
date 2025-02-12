@@ -1,4 +1,4 @@
-﻿namespace Makc2025.Dummy.Writer.Infrastructure.Authentication.App.Action.Command;
+﻿namespace Makc2025.Dummy.Writer.Infrastructure.Core.App.Action.Command;
 
 /// <summary>
 /// Сервис команд действия с приложением.

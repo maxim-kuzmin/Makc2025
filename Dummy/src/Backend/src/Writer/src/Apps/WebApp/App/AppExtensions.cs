@@ -32,9 +32,8 @@ public static class AppExtensions
     var services = appBuilder.Services.Configure<AppConfigOptions>(appConfigSection)
       .AddAppDomainModel(logger)
       .AddAppDomainUseCases(logger)
-      .AddAppInfrastructureTiedToCore(logger, appBuilder.Configuration)
+      .AddAppInfrastructureTiedToCore(logger, appBuilder.Configuration, appConfigSectionAuthentication)
       .AddAppInfrastructureTiedToEntityFramework(logger, appConfigOptions.PostgreSQL, appBuilder.Configuration)
-      .AddAppInfrastructureTiedToAuthentication(logger, appConfigSectionAuthentication)
       .AddAppInfrastructureTiedToGrpc(logger)
       .AddAppInfrastructureTiedToRabbitMQ(logger, appConfigSectionRabbitMQ);
 
