@@ -29,6 +29,9 @@ public static class AppExtensions
     services.AddSingleton<AppEventPayloadEntitySettings>(appDbSettings.Entities.AppEventPayload);
     services.AddSingleton<DummyItemEntitySettings>(appDbSettings.Entities.DummyItem);
 
+    services.AddSingleton<IDummyItemGetActionFactory, DummyItemGetActionFactory>();
+    services.AddSingleton<IDummyItemGetListActionFactory, DummyItemGetListActionFactory>();
+
     logger.LogInformation("Added application infrastructure tied to PostgreSQL");
 
     return services;

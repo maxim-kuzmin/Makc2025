@@ -44,13 +44,13 @@ public static class Extensions
   {
     if (command.Parameters?.Any() == true)
     {
-      var sql = FormattableStringFactory.Create(command.TextWithFormat, [.. command.Parameters]);
+      var sql = FormattableStringFactory.Create(command.Text, [.. command.Parameters]);
 
       return dbContext.Database.SqlQuery<T>(sql);
     }
     else
     {
-      return dbContext.Database.SqlQueryRaw<T>(command.TextWithFormat);
+      return dbContext.Database.SqlQueryRaw<T>(command.Text);
     }
   }
 }

@@ -1,9 +1,34 @@
 ﻿namespace Makc2025.Dummy.Writer.Infrastructure.PostgreSQL.DummyItem.Actions.Get;
 
-public class DummyItemGetActionFactory
+/// <summary>
+/// Фабрика действия по получению фиктивного предмета.
+/// </summary>
+/// <param name="_appDbSettings">Настройки базы данных приложения.</param>
+public class DummyItemGetActionFactory(AppDbSettings _appDbSettings) : IDummyItemGetActionFactory
 {  
-  public DbSQLCommand CreateDbSQLCommand()
+  /// <inheritdoc/>
+  public DbSQLCommand CreateSQL(DummyItemGetActionQuery query)
   {
-    return new(string.Empty);
+    var sDummyItem = _appDbSettings.Entities.DummyItem;
+
+    var parameters = new List<object>();
+
+    var parameterIndex = 0;
+
+    string text = $$"""
+
+select
+  "{{sDummyItem.ColumnForId}}" "Id",
+  "{{sDummyItem.ColumnForName}}" "Name"
+from
+  "{{sDummyItem.Schema}}"."{{sDummyItem.Table}}"
+where
+  "{{sDummyItem.ColumnForId}}" = {{{parameterIndex}}}
+
+""";
+
+    parameters.Add(query.Id);
+
+    return new(text, parameters);
   }
 }

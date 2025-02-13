@@ -3,12 +3,14 @@
 /// <summary>
 /// Сервис запросов действия с фиктивным предметом.
 /// </summary>
-/// <param name="_appDbHelperForSQL">Помощник базы данных приложения для SQL.</param>
-/// <param name="_appDbSettings">Настройки базы данных приложения.</param>
+/// <param name="_dummyItemGetActionFactory">Фабрика действия по получению фиктивного предмета.</param>
+/// <param name="_dummyItemGetListActionFactory">Фабрика действия по получению списка фиктивных предметов.</param>
+/// <param name="_appDbSQLContext">SQL-контекст базы данных приложения.</param>
 /// <param name="appSession">Сессия приложения.</param>
 public class DummyItemActionQueryService(
-  IAppDbHelperForSQL _appDbHelperForSQL,
-  AppDbSettings _appDbSettings,
+  IAppDbSQLContext _appDbSQLContext,
+  IDummyItemGetActionFactory _dummyItemGetActionFactory,
+  IDummyItemGetListActionFactory _dummyItemGetListActionFactory,
   AppSession appSession) : DummyItemActionQueryServiceBase(appSession)
 {
   /// <inheritdoc/>
@@ -16,29 +18,10 @@ public class DummyItemActionQueryService(
     DummyItemGetActionQuery query,
     CancellationToken cancellationToken)
   {
-    var sDummyItem = _appDbSettings.Entities.DummyItem;
+    var sql = _dummyItemGetActionFactory.CreateSQL(query);
 
-    var parameters = new List<object>();
-
-    var parameterIndex = 0;
-
-    var sql = $$"""
-
-select
-  "{{sDummyItem.ColumnForId}}" "Id",
-  "{{sDummyItem.ColumnForName}}" "Name"
-from
-  "{{sDummyItem.Schema}}"."{{sDummyItem.Table}}"
-where
-  "{{sDummyItem.ColumnForId}}" = {{{parameterIndex}}}
-
-""";
-
-    parameters.Add(query.Id);
-
-    var task = _appDbHelperForSQL.CreateQueryFromSqlWithFormat<DummyItemSingleDTO>(
-      sql,
-      parameters).FirstOrDefaultAsync(cancellationToken);
+    var task = _appDbSQLContext.CreateQuery<DummyItemSingleDTO>(sql)
+      .FirstOrDefaultAsync(cancellationToken);
 
     var result = await task.ConfigureAwait(false);
 
@@ -50,134 +33,33 @@ where
     DummyItemGetListActionQuery query,
     CancellationToken cancellationToken)
   {
-    var sDummyItem = _appDbSettings.Entities.DummyItem;
+    var sqlForFilter = _dummyItemGetListActionFactory.CreateSQLForFilter(query);
 
-    var parameters = new List<object>();
+    var sqlForTotalCount = _dummyItemGetListActionFactory.CreateSQLForTotalCount(sqlForFilter);
 
-    var parameterIndex = 0;
+    var taskForTotalCount = _appDbSQLContext.CreateQuery<long>(sqlForTotalCount)
+      .ToListAsync(cancellationToken);
 
-    var sqlForFilter = string.Empty;
+    var dataForTotalCount = await taskForTotalCount.ConfigureAwait(false);
 
-    if (!string.IsNullOrEmpty(query.Filter?.FullTextSearchQuery))
+    var totalCount = dataForTotalCount[0];
+
+    List<DummyItemSingleDTO> items;
+
+    if (totalCount > 0)
     {
-      sqlForFilter = $$"""
+      var sqlForItems = _dummyItemGetListActionFactory.CreateSQLForItems(sqlForFilter, query.Page);
 
-where
-  di."{{sDummyItem.ColumnForId}}"::text ilike {{{parameterIndex}}}
-  or
-  di."{{sDummyItem.ColumnForName}}" ilike {{{parameterIndex}}}
-      
-""";
+      var taskForItems = _appDbSQLContext.CreateQuery<DummyItemSingleDTO>(sqlForItems)
+        .ToListAsync(cancellationToken);
 
-      parameters.Add($"%{query.Filter.FullTextSearchQuery}%");
-
-      parameterIndex++;
+      items = await taskForItems.ConfigureAwait(false);
+    }
+    else
+    {
+      items = [];
     }
 
-    var totalCountTask = GetTotalCount(
-      sqlForFilter,
-      parameters,
-      sDummyItem,
-      cancellationToken);
-
-    var totalCount = await totalCountTask.ConfigureAwait(false);
-
-    var itemsTask = GetItems(
-      query,
-      parameterIndex,
-      sqlForFilter,
-      parameters,
-      sDummyItem,
-      cancellationToken);
-
-    var items = await itemsTask.ConfigureAwait(false);
-
-    var result = items.ToDummyItemListDTO(totalCount);
-
-    return result;
-  }
-
-  private async Task<Result<long>> GetTotalCount(
-    string sqlForFilter,
-    List<object> parameters,
-    DummyItemEntityDbSettings sDummyItem,
-    CancellationToken cancellationToken)
-  {
-    string sql = $$"""
-    
-select
-  count(*)
-from
-  "{{sDummyItem.Schema}}"."{{sDummyItem.Table}}" di
-
-{{sqlForFilter}}
-
-""";
-
-    var task = _appDbHelperForSQL.CreateQueryFromSqlWithFormat<long>(
-      sql,
-      parameters).ToListAsync(cancellationToken);
-
-    var result = await task.ConfigureAwait(false);
-
-    return result[0];
-  }
-
-  private async Task<List<DummyItemSingleDTO>> GetItems(
-    DummyItemGetListActionQuery query,
-    int parameterIndex,
-    string sqlForFilter,
-    List<object> parameters,
-    DummyItemEntityDbSettings sDummyItem,
-    CancellationToken cancellationToken)
-  {
-    string sql = $$"""
-
-select
-  di."{{sDummyItem.ColumnForId}}" "Id",
-  di."{{sDummyItem.ColumnForName}}" "Name"
-from
-  "{{sDummyItem.Schema}}"."{{sDummyItem.Table}}" di
-
-{{sqlForFilter}}
-
-order by
-  di."{{sDummyItem.ColumnForId}}" desc
-    
-""";
-
-    if (query.Page != null)
-    {
-      if (query.Page.Size > 0)
-      {
-        sql += $$"""
-        
-limit {{{parameterIndex++}}}
-        
-""";
-
-        parameters.Add(query.Page.Size);
-      }
-
-      if (query.Page.Number > 0)
-      {
-        sql += $$"""
-        
-offset {{{parameterIndex++}}}
-                
-"""
-        ;
-
-        parameters.Add((query.Page.Number - 1) * query.Page.Size);
-      }
-    }
-
-    var task = _appDbHelperForSQL.CreateQueryFromSqlWithFormat<DummyItemSingleDTO>(
-      sql,
-      parameters).ToListAsync(cancellationToken);
-
-    var result = await task.ConfigureAwait(false);
-
-    return result;
+    return new(items, totalCount);
   }
 }
