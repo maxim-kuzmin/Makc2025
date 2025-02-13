@@ -1,9 +1,7 @@
 ﻿global using Makc2025.Dummy.Shared.DomainUseCases.Db.SQL;
-global using Makc2025.Dummy.Writer.DomainModel.App.Db;
 global using Makc2025.Dummy.Writer.DomainModel.AppEvent.Entity;
 global using Makc2025.Dummy.Writer.DomainModel.AppEventPayload.Entity;
 global using Makc2025.Dummy.Writer.DomainModel.DummyItem.Entity;
-global using Makc2025.Dummy.Writer.Infrastructure.PostgreSQL.App.Db;
 global using Makc2025.Dummy.Writer.Infrastructure.PostgreSQL.App.Db.Settings;
 global using Makc2025.Dummy.Writer.Infrastructure.PostgreSQL.AppEvent.Entity.Db;
 global using Makc2025.Dummy.Writer.Infrastructure.PostgreSQL.AppEventPayload.Entity.Db;
