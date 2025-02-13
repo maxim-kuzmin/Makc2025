@@ -92,6 +92,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Makc2025.Dummy.Writer.Infra
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Makc2025.Dummy.Writer.Infrastructure.Grpc", "src\Writer\src\Infrastructure\Grpc\Makc2025.Dummy.Writer.Infrastructure.Grpc.csproj", "{4F55E592-9885-49D3-907D-5FD5BBB2FECB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Makc2025.Dummy.Writer.Infrastructure.PostgreSQL", "src\Writer\src\Infrastructure\PostgreSQL\Makc2025.Dummy.Writer.Infrastructure.PostgreSQL.csproj", "{1AD73FB2-E435-424C-B8D7-198699F3BBBC}"
+EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Makc2025.Dummy.Writer.Infrastructure.RabbitMQ", "src\Writer\src\Infrastructure\RabbitMQ\Makc2025.Dummy.Writer.Infrastructure.RabbitMQ.csproj", "{24B21428-536B-4ED5-BF13-6BAC6A06FB80}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Makc2025.Dummy.Writer.DomainModel", "src\Writer\src\DomainModel\Makc2025.Dummy.Writer.DomainModel.csproj", "{2F81EAA0-6B77-4304-8E38-FE3C28CE79E0}"
@@ -220,6 +222,10 @@ Global
 		{43031B59-296A-46B7-B778-AF0066EB77B7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{43031B59-296A-46B7-B778-AF0066EB77B7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{43031B59-296A-46B7-B778-AF0066EB77B7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1AD73FB2-E435-424C-B8D7-198699F3BBBC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1AD73FB2-E435-424C-B8D7-198699F3BBBC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1AD73FB2-E435-424C-B8D7-198699F3BBBC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1AD73FB2-E435-424C-B8D7-198699F3BBBC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -266,6 +272,7 @@ Global
 		{24B21428-536B-4ED5-BF13-6BAC6A06FB80} = {ACCAAED2-3AF2-4CF0-BF6B-AF420E9841B5}
 		{2F81EAA0-6B77-4304-8E38-FE3C28CE79E0} = {79303FD3-E3EE-4B57-BBDC-AFF7EBC56AFD}
 		{43031B59-296A-46B7-B778-AF0066EB77B7} = {79303FD3-E3EE-4B57-BBDC-AFF7EBC56AFD}
+		{1AD73FB2-E435-424C-B8D7-198699F3BBBC} = {ACCAAED2-3AF2-4CF0-BF6B-AF420E9841B5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {15FE02FB-BDBA-4016-B958-EB31A71E7634}

@@ -32,12 +32,6 @@ public static class AppExtensions
     if (appConfigAuthenticationSection != null)
     {
       services.Configure<AppConfigOptionsAuthenticationSection>(appConfigAuthenticationSection);
-
-      services.AddTransient<IAppActionCommandService, AppActionCommandService>();
-    }
-    else
-    {
-      services.AddTransient<IAppActionCommandService, AppActionCommandServiceFake>();
     }
 
     logger.LogInformation("Added application infrastructure tied to Core");

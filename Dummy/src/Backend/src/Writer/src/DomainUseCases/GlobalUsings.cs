@@ -1,8 +1,11 @@
-﻿global using System.Reflection;
+﻿global using System.IdentityModel.Tokens.Jwt;
+global using System.Reflection;
+global using System.Security.Claims;
 global using System.Text.Json;
 global using Ardalis.Result;
 global using Ardalis.SharedKernel;
 global using Makc2025.Dummy.Shared.Core.App;
+global using Makc2025.Dummy.Shared.Core.App.Config.Options.Sections;
 global using Makc2025.Dummy.Shared.DomainModel.Entity;
 global using Makc2025.Dummy.Shared.DomainUseCases.Db;
 global using Makc2025.Dummy.Shared.DomainUseCases.Db.Helpers;
@@ -47,3 +50,5 @@ global using Makc2025.Dummy.Writer.DomainUseCases.DummyItem.DTOs;
 global using MediatR;
 global using Microsoft.Extensions.DependencyInjection;
 global using Microsoft.Extensions.Logging;
+global using Microsoft.Extensions.Options;
+global using Microsoft.IdentityModel.Tokens;
