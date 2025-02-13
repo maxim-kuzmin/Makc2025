@@ -57,14 +57,21 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
   }
 
   /// <inheritdoc/>
-  IQueryable<T> IDbSQLContext.CreateQuery<T>(DbSQLCommand command)
-  {
-    return this.CreateQuery<T>(command);
-  }
-
-  /// <inheritdoc/>
   IQueryable<T> IDbHelperForSQL.CreateQueryFromSqlWithFormat<T>(string sqlWithFormat, IEnumerable<object>? parameters)
   {
     return this.CreateQueryFromSqlWithFormat<T>(sqlWithFormat, parameters);
+  }
+
+  /// <inheritdoc/>
+  Task<T?> IDbSQLContext.GetFirstOrDefaultAsync<T>(DbSQLCommand sql, CancellationToken cancellationToken)
+    where T : default
+  {
+    return this.CreateQuery<T>(sql).FirstOrDefaultAsync(cancellationToken);
+  }
+
+  /// <inheritdoc/>
+  Task<List<T>> IDbSQLContext.GetListAsync<T>(DbSQLCommand sql, CancellationToken cancellationToken)
+  {
+    return this.CreateQuery<T>(sql).ToListAsync(cancellationToken);
   }
 }

@@ -39,24 +39,6 @@ where
     return new(text, parameters);
   }
 
-
-  /// <inheritdoc/>
-  public DbSQLCommand CreateSQLForTotalCount(DbSQLCommand sqlForFilter)
-  {
-    var sDummyItem = _appDbSettings.Entities.DummyItem;
-
-    string text = $$"""    
-select
-  count(*)
-from
-  "{{sDummyItem.Schema}}"."{{sDummyItem.Table}}" di
-{{sqlForFilter.Text}}
-
-""";
-
-    return new(text, sqlForFilter.Parameters);
-  }
-
   /// <inheritdoc/>
   public DbSQLCommand CreateSQLForItems(DbSQLCommand sqlForFilter, QueryPage? page)
   {
@@ -102,5 +84,23 @@ offset {{{parameterIndex++}}}
     }
 
     return new(text, parameters);
+  }
+
+
+  /// <inheritdoc/>
+  public DbSQLCommand CreateSQLForTotalCount(DbSQLCommand sqlForFilter)
+  {
+    var sDummyItem = _appDbSettings.Entities.DummyItem;
+
+    string text = $$"""    
+select
+  count(*)
+from
+  "{{sDummyItem.Schema}}"."{{sDummyItem.Table}}" di
+{{sqlForFilter.Text}}
+
+""";
+
+    return new(text, sqlForFilter.Parameters);
   }
 }

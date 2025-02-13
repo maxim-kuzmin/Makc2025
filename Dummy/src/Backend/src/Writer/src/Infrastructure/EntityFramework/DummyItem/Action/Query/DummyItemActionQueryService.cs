@@ -20,8 +20,7 @@ public class DummyItemActionQueryService(
   {
     var sql = _dummyItemGetActionFactory.CreateSQL(query);
 
-    var task = _appDbSQLContext.CreateQuery<DummyItemSingleDTO>(sql)
-      .FirstOrDefaultAsync(cancellationToken);
+    var task = _appDbSQLContext.GetFirstOrDefaultAsync<DummyItemSingleDTO>(sql, cancellationToken);
 
     var result = await task.ConfigureAwait(false);
 
@@ -37,8 +36,7 @@ public class DummyItemActionQueryService(
 
     var sqlForTotalCount = _dummyItemGetListActionFactory.CreateSQLForTotalCount(sqlForFilter);
 
-    var taskForTotalCount = _appDbSQLContext.CreateQuery<long>(sqlForTotalCount)
-      .ToListAsync(cancellationToken);
+    var taskForTotalCount = _appDbSQLContext.GetListAsync<long>(sqlForTotalCount, cancellationToken);
 
     var dataForTotalCount = await taskForTotalCount.ConfigureAwait(false);
 
@@ -50,8 +48,7 @@ public class DummyItemActionQueryService(
     {
       var sqlForItems = _dummyItemGetListActionFactory.CreateSQLForItems(sqlForFilter, query.Page);
 
-      var taskForItems = _appDbSQLContext.CreateQuery<DummyItemSingleDTO>(sqlForItems)
-        .ToListAsync(cancellationToken);
+      var taskForItems = _appDbSQLContext.GetListAsync<DummyItemSingleDTO>(sqlForItems, cancellationToken);
 
       items = await taskForItems.ConfigureAwait(false);
     }

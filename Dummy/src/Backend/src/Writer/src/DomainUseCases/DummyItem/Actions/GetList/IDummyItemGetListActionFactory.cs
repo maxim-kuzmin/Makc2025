@@ -13,17 +13,17 @@ public interface IDummyItemGetListActionFactory
   DbSQLCommand CreateSQLForFilter(DummyItemGetListActionQuery query);
 
   /// <summary>
-  /// Создать SQL для общего количества.
-  /// </summary>
-  /// <param name="sqlForFilter">SQL для фильтра.</param>
-  /// <returns>SQL для общего количества.</returns>
-  DbSQLCommand CreateSQLForTotalCount(DbSQLCommand sqlForFilter);
-
-  /// <summary>
   /// Создать SQL для элементов.
   /// </summary>
   /// <param name="sqlForFilter">SQL для фильтра.</param>
   /// <param name="page">Страница.</param>
   /// <returns>SQL для элементов.</returns>
   DbSQLCommand CreateSQLForItems(DbSQLCommand sqlForFilter, QueryPage? page);
+
+  /// <summary>
+  /// Создать SQL для общего количества.
+  /// </summary>
+  /// <param name="sqlForFilter">SQL для фильтра.</param>
+  /// <returns>SQL для общего количества.</returns>
+  DbSQLCommand CreateSQLForTotalCount(DbSQLCommand sqlForFilter);
 }

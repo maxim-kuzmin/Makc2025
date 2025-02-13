@@ -6,10 +6,20 @@
 public interface IDbSQLContext
 {
   /// <summary>
-  /// Создать запрос.
+  /// Получить первый элемент или значение по умолчанию асинхронно.
   /// </summary>
-  /// <typeparam name="T">Тип данных, возвращаемый запросом.</typeparam>
-  /// <param name="command">Команда.</param>
-  /// <returns>Запрос.</returns>
-  IQueryable<T> CreateQuery<T>(DbSQLCommand command);
+  /// <typeparam name="T">Тип возвращаемого элемента.</typeparam>
+  /// <param name="sql">SQL.</param>
+  /// <param name="cancellationToken">Токен отмены.</param>
+  /// <returns>Первое или по умолчанию.</returns>
+  Task<T?> GetFirstOrDefaultAsync<T>(DbSQLCommand sql, CancellationToken cancellationToken);
+
+  /// <summary>
+  /// Получить список асинхронно.
+  /// </summary>
+  /// <typeparam name="T">Тип элемента возвращаемого списка.</typeparam>
+  /// <param name="sql">SQL.</param>
+  /// <param name="cancellationToken">Токен отмены.</param>
+  /// <returns>Список.</returns>
+  Task<List<T>> GetListAsync<T>(DbSQLCommand sql, CancellationToken cancellationToken);
 }
