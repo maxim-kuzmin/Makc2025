@@ -11,9 +11,7 @@ public class DummyItemGetActionFactory(AppDbSettings _appDbSettings) : IDummyIte
   {
     var sDummyItem = _appDbSettings.Entities.DummyItem;
 
-    var parameters = new List<object>();
-
-    var parameterIndex = 0;
+    List<object> parameters = [query.Id];
 
     string text = $$"""
 
@@ -23,11 +21,9 @@ select
 from
   "{{sDummyItem.Schema}}"."{{sDummyItem.Table}}"
 where
-  "{{sDummyItem.ColumnForId}}" = {{{parameterIndex}}}
+  "{{sDummyItem.ColumnForId}}" = {0}
 
 """;
-
-    parameters.Add(query.Id);
 
     return new(text, parameters);
   }

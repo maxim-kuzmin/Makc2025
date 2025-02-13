@@ -65,7 +65,7 @@ from
   {
     var sDummyItem = _appDbSettings.Entities.DummyItem;
 
-    List<object> parameters = sqlForFilter.Parameters ?? [];
+    var parameters = sqlForFilter.Parameters ?? [];
 
     int parameterIndex = parameters.Count;
 
