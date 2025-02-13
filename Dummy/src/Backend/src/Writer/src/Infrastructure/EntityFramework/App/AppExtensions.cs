@@ -20,7 +20,6 @@ public static class AppExtensions
     AppDbContext.Init(appDbSettings);
 
     services.AddScoped<IAppDbExecutor, AppDbExecutor>();
-    services.AddScoped<IAppDbHelperForSQL, AppDbContext>();
     services.AddScoped<IAppDbSQLContext, AppDbContext>();
 
     services.AddScoped(typeof(IRepository<>), typeof(AppRepositoryBase<>));

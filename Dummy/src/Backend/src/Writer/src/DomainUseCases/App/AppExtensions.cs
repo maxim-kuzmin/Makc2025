@@ -18,11 +18,16 @@ public static class AppExtensions
     services.AddScoped(typeof(IPipelineBehavior<,>), typeof(LoggingBehavior<,>));
 
     services.AddTransient<IAppActionCommandService, AppActionCommandService>();
-    services.AddTransient<IAppEventActionCommandService, AppEventActionCommandService>();
-    services.AddTransient<IAppEventPayloadActionCommandService, AppEventPayloadActionCommandService>();
-    services.AddTransient<IAppOutboxActionCommandService, AppOutboxActionCommandService>();
-    services.AddTransient<IDummyItemActionCommandService, DummyItemActionCommandService>();
 
+    services.AddTransient<IAppEventActionCommandService, AppEventActionCommandService>();
+    services.AddTransient<IAppEventActionQueryService, AppEventActionQueryService>();
+
+    services.AddTransient<IAppEventPayloadActionCommandService, AppEventPayloadActionCommandService>();
+    services.AddTransient<IAppEventPayloadActionQueryService, AppEventPayloadActionQueryService>();
+
+    services.AddTransient<IAppOutboxActionCommandService, AppOutboxActionCommandService>();
+
+    services.AddTransient<IDummyItemActionCommandService, DummyItemActionCommandService>();
     services.AddTransient<IDummyItemActionQueryService, DummyItemActionQueryService>();
 
     logger.LogInformation("Added application domain use cases");

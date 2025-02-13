@@ -5,7 +5,7 @@
 /// вызвать статический метод Init.
 /// </summary>
 /// <param name="options">Параметры.</param>
-public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options), IAppDbHelperForSQL, IAppDbSQLContext
+public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options), IAppDbSQLContext
 {
   private static readonly Lock _initLock = new();
 
@@ -54,12 +54,6 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
     base.OnModelCreating(modelBuilder);
 
     modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
-  }
-
-  /// <inheritdoc/>
-  IQueryable<T> IDbHelperForSQL.CreateQueryFromSqlWithFormat<T>(string sqlWithFormat, IEnumerable<object>? parameters)
-  {
-    return this.CreateQueryFromSqlWithFormat<T>(sqlWithFormat, parameters);
   }
 
   /// <inheritdoc/>

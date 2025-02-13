@@ -14,7 +14,9 @@ public static class AppExtensions
   public static IServiceCollection AddAppDomainModel(this IServiceCollection services, ILogger logger)
   {
     services.AddSingleton<IAppEventFactory, AppEventFactory>();
+
     services.AddSingleton<IAppEventPayloadFactory, AppEventPayloadFactory>();
+    
     services.AddSingleton<IDummyItemFactory, DummyItemFactory>();
 
     logger.LogInformation("Added application domain model");

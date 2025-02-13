@@ -22,13 +22,17 @@ public static class AppExtensions
     services.AddSingleton(appDbSettings);
 
     services.AddSingleton(appDbSettings.Entities.AppEvent);
-    services.AddSingleton(appDbSettings.Entities.AppEventPayload);
-    services.AddSingleton(appDbSettings.Entities.DummyItem);
-
     services.AddSingleton<AppEventEntitySettings>(appDbSettings.Entities.AppEvent);
-    services.AddSingleton<AppEventPayloadEntitySettings>(appDbSettings.Entities.AppEventPayload);
-    services.AddSingleton<DummyItemEntitySettings>(appDbSettings.Entities.DummyItem);
+    services.AddSingleton<IAppEventGetActionFactory, AppEventGetActionFactory>();
+    services.AddSingleton<IAppEventGetListActionFactory, AppEventGetListActionFactory>();
 
+    services.AddSingleton(appDbSettings.Entities.AppEventPayload);
+    services.AddSingleton<AppEventPayloadEntitySettings>(appDbSettings.Entities.AppEventPayload);
+    services.AddSingleton<IAppEventPayloadGetActionFactory, AppEventPayloadGetActionFactory>();
+    services.AddSingleton<IAppEventPayloadGetListActionFactory, AppEventPayloadGetListActionFactory>();
+
+    services.AddSingleton(appDbSettings.Entities.DummyItem);
+    services.AddSingleton<DummyItemEntitySettings>(appDbSettings.Entities.DummyItem);
     services.AddSingleton<IDummyItemGetActionFactory, DummyItemGetActionFactory>();
     services.AddSingleton<IDummyItemGetListActionFactory, DummyItemGetListActionFactory>();
 
