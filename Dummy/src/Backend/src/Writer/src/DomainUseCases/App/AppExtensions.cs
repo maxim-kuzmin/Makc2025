@@ -23,6 +23,8 @@ public static class AppExtensions
     services.AddTransient<IAppOutboxActionCommandService, AppOutboxActionCommandService>();
     services.AddTransient<IDummyItemActionCommandService, DummyItemActionCommandService>();
 
+    services.AddTransient<IDummyItemActionQueryService, DummyItemActionQueryService>();
+
     logger.LogInformation("Added application domain use cases");
 
     return services;

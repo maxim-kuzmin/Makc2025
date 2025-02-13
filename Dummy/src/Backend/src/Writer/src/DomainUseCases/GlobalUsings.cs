@@ -18,6 +18,7 @@ global using Makc2025.Dummy.Writer.DomainModel.DummyItem;
 global using Makc2025.Dummy.Writer.DomainUseCases.App.Action.Command;
 global using Makc2025.Dummy.Writer.DomainUseCases.App.Actions.Login;
 global using Makc2025.Dummy.Writer.DomainUseCases.App.Db;
+global using Makc2025.Dummy.Writer.DomainUseCases.App.Db.SQL;
 global using Makc2025.Dummy.Writer.DomainUseCases.App.Event;
 global using Makc2025.Dummy.Writer.DomainUseCases.AppEvent.Action.Command;
 global using Makc2025.Dummy.Writer.DomainUseCases.AppEvent.Action.Query;

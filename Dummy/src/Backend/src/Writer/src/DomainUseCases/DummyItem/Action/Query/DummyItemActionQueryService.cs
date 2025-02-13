@@ -1,4 +1,4 @@
-﻿namespace Makc2025.Dummy.Writer.Infrastructure.EntityFramework.DummyItem.Action.Query;
+﻿namespace Makc2025.Dummy.Writer.DomainUseCases.DummyItem.Action.Query;
 
 /// <summary>
 /// Сервис запросов действия с фиктивным предметом.
@@ -6,15 +6,15 @@
 /// <param name="_dummyItemGetActionFactory">Фабрика действия по получению фиктивного предмета.</param>
 /// <param name="_dummyItemGetListActionFactory">Фабрика действия по получению списка фиктивных предметов.</param>
 /// <param name="_appDbSQLContext">SQL-контекст базы данных приложения.</param>
-/// <param name="appSession">Сессия приложения.</param>
+/// <param name="_appSession">Сессия приложения.</param>
 public class DummyItemActionQueryService(
   IAppDbSQLContext _appDbSQLContext,
   IDummyItemGetActionFactory _dummyItemGetActionFactory,
   IDummyItemGetListActionFactory _dummyItemGetListActionFactory,
-  AppSession appSession) : DummyItemActionQueryServiceBase(appSession)
+  AppSession _appSession) : IDummyItemActionQueryService
 {
   /// <inheritdoc/>
-  protected sealed override async Task<DummyItemSingleDTO?> GetDTO(
+  public async Task<Result<DummyItemSingleDTO>> Get(
     DummyItemGetActionQuery query,
     CancellationToken cancellationToken)
   {
@@ -22,16 +22,18 @@ public class DummyItemActionQueryService(
 
     var task = _appDbSQLContext.GetFirstOrDefaultAsync<DummyItemSingleDTO>(sql, cancellationToken);
 
-    var result = await task.ConfigureAwait(false);
+    var dto = await task.ConfigureAwait(false);
 
-    return result;
+    return dto != null ? Result.Success(dto) : Result.NotFound();
   }
 
   /// <inheritdoc/>
-  protected sealed override async Task<DummyItemListDTO> GetDTO(
+  public async Task<Result<DummyItemListDTO>> GetList(
     DummyItemGetListActionQuery query,
     CancellationToken cancellationToken)
   {
+    var userName = _appSession.User.Identity?.Name;
+
     var sqlForFilter = _dummyItemGetListActionFactory.CreateSQLForFilter(query);
 
     var sqlForTotalCount = _dummyItemGetListActionFactory.CreateSQLForTotalCount(sqlForFilter);
@@ -57,6 +59,8 @@ public class DummyItemActionQueryService(
       items = [];
     }
 
-    return new(items, totalCount);
+    DummyItemListDTO dto = new(items, totalCount);
+
+    return Result.Success(dto);
   }
 }

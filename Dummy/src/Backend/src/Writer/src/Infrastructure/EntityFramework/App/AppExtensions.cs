@@ -31,8 +31,7 @@ public static class AppExtensions
     services.AddScoped<IDummyItemRepository, DummyItemRepository>();
 
     services.AddTransient<IAppEventActionQueryService, AppEventActionQueryService>();
-    services.AddTransient<IAppEventPayloadActionQueryService, AppEventPayloadActionQueryService>();
-    services.AddTransient<IDummyItemActionQueryService, DummyItemActionQueryService>();
+    services.AddTransient<IAppEventPayloadActionQueryService, AppEventPayloadActionQueryService>();    
 
     logger.LogInformation("Added application infrastructure tied to Entity Framework");
 
