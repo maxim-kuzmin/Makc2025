@@ -22,12 +22,11 @@ public class DummyItemGetListActionFactory(AppDbSettings _appDbSettings) : IDumm
       parameters = [];
 
       text = $$"""
-
 where
   di."{{sDummyItem.ColumnForId}}"::text ilike {{{parameterIndex}}}
   or
   di."{{sDummyItem.ColumnForName}}" ilike {{{parameterIndex}}}
-      
+
 """;
 
       parameters.Add($"%{query.Filter.FullTextSearchQuery}%");
@@ -46,13 +45,11 @@ where
   {
     var sDummyItem = _appDbSettings.Entities.DummyItem;
 
-    string text = $$"""
-    
+    string text = $$"""    
 select
   count(*)
 from
   "{{sDummyItem.Schema}}"."{{sDummyItem.Table}}" di
-
 {{sqlForFilter.Text}}
 
 """;
@@ -70,28 +67,24 @@ from
     int parameterIndex = parameters.Count;
 
     string text = $$"""
-
 select
   di."{{sDummyItem.ColumnForId}}" "Id",
   di."{{sDummyItem.ColumnForName}}" "Name"
 from
   "{{sDummyItem.Schema}}"."{{sDummyItem.Table}}" di
-
 {{sqlForFilter.Text}}
-
 order by
   di."{{sDummyItem.ColumnForId}}" desc
-    
+
 """;
 
     if (page != null)
     {
       if (page.Size > 0)
       {
-        text += $$"""
-        
+        text += $$"""        
 limit {{{parameterIndex++}}}
-        
+
 """;
 
         parameters.Add(page.Size);
@@ -99,10 +92,9 @@ limit {{{parameterIndex++}}}
 
       if (page.Number > 0)
       {
-        text += $$"""
-        
+        text += $$"""        
 offset {{{parameterIndex++}}}
-                
+
 """;
 
         parameters.Add((page.Number - 1) * page.Size);

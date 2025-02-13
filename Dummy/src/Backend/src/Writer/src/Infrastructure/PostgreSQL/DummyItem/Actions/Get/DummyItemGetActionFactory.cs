@@ -14,7 +14,6 @@ public class DummyItemGetActionFactory(AppDbSettings _appDbSettings) : IDummyIte
     List<object> parameters = [query.Id];
 
     string text = $$"""
-
 select
   "{{sDummyItem.ColumnForId}}" "Id",
   "{{sDummyItem.ColumnForName}}" "Name"
