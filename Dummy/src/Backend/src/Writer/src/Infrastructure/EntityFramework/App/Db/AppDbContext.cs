@@ -1,11 +1,11 @@
-﻿namespace Makc2025.Dummy.Writer.Infrastructure.App.Db;
+﻿namespace Makc2025.Dummy.Writer.Infrastructure.EntityFramework.App.Db;
 
 /// <summary>
 /// Контекст базы данных приложения. При старте приложения перед регистрацией класса в контейнере DI нужно обязательно
 /// вызвать статический метод Init.
 /// </summary>
 /// <param name="options">Параметры.</param>
-public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options), IAppDbHelperForSQL
+public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options), IAppDbHelperForSQL, IAppDbSQLContext
 {
   private static readonly Lock _initLock = new();
 
@@ -54,6 +54,12 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
     base.OnModelCreating(modelBuilder);
 
     modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+  }
+
+  /// <inheritdoc/>
+  IQueryable<T> IDbSQLContext.CreateQuery<T>(DbSQLCommand command)
+  {
+    return this.CreateQuery<T>(command);
   }
 
   /// <inheritdoc/>

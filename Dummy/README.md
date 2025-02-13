@@ -74,8 +74,18 @@ dotnet dev-certs https --trust
 
 ## Миграции
 
-```
-cd .\src\Backend\src\Writer\src\Infrastructure\EntityFramework
+1. Добавить миграцию с именем InitialCreate:
 
-dotnet ef migrations add InitialCreate --startup-project ../../Apps/WebApp --output-dir ./App/Db/For/PostgreSQL/Migrations
+```
+cd .\src\Backend\src\Writer\src\Infrastructure\EntityFrameworkForPostgreSQL
+
+dotnet ef migrations add InitialCreate --startup-project ../../Apps/WebApp --output-dir ./App/Db/Migrations
+```
+
+2. Применить все миграции:
+
+```
+cd .\src\Backend\src\Writer\src\Infrastructure\EntityFrameworkForPostgreSQL
+
+dotnet ef database update --startup-project ../../Apps/WebApp
 ```

@@ -2,11 +2,15 @@
 global using Makc2025.Dummy.Shared.Core.App;
 global using Makc2025.Dummy.Shared.DomainModel.Aggregate;
 global using Makc2025.Dummy.Shared.DomainModel.Entity;
+global using Makc2025.Dummy.Writer.DomainModel.App.Db.Settings;
 global using Makc2025.Dummy.Writer.DomainModel.AppEvent;
 global using Makc2025.Dummy.Writer.DomainModel.AppEvent.Entity;
+global using Makc2025.Dummy.Writer.DomainModel.AppEvent.Entity.Db;
 global using Makc2025.Dummy.Writer.DomainModel.AppEventPayload;
 global using Makc2025.Dummy.Writer.DomainModel.AppEventPayload.Entity;
+global using Makc2025.Dummy.Writer.DomainModel.AppEventPayload.Entity.Db;
 global using Makc2025.Dummy.Writer.DomainModel.DummyItem;
 global using Makc2025.Dummy.Writer.DomainModel.DummyItem.Entity;
+global using Makc2025.Dummy.Writer.DomainModel.DummyItem.Entity.Db;
 global using Microsoft.Extensions.DependencyInjection;
 global using Microsoft.Extensions.Logging;

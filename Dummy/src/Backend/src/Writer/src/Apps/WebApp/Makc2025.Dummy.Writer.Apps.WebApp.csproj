@@ -24,8 +24,10 @@
   <ItemGroup>
     <ProjectReference Include="..\..\..\..\Shared\src\Apps\WebApp\Makc2025.Dummy.Shared.Apps.WebApp.csproj" />
     <ProjectReference Include="..\..\Infrastructure\Core\Makc2025.Dummy.Writer.Infrastructure.Core.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\EntityFrameworkForPostgreSQL\Makc2025.Dummy.Writer.Infrastructure.EntityFrameworkForPostgreSQL.csproj" />
     <ProjectReference Include="..\..\Infrastructure\EntityFramework\Makc2025.Dummy.Writer.Infrastructure.EntityFramework.csproj" />
     <ProjectReference Include="..\..\Infrastructure\Grpc\Makc2025.Dummy.Writer.Infrastructure.Grpc.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\PostgreSQL\Makc2025.Dummy.Writer.Infrastructure.PostgreSQL.csproj" />
     <ProjectReference Include="..\..\Infrastructure\RabbitMQ\Makc2025.Dummy.Writer.Infrastructure.RabbitMQ.csproj" />
   </ItemGroup>
   

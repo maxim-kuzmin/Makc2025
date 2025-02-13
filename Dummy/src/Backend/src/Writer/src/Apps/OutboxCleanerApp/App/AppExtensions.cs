@@ -1,6 +1,4 @@
-﻿using System.Globalization;
-
-namespace Makc2025.Dummy.Writer.Apps.OutboxCleanerApp.App;
+﻿namespace Makc2025.Dummy.Writer.Apps.OutboxCleanerApp.App;
 
 /// <summary>
 /// Расширения приложения.
@@ -28,7 +26,12 @@ public static class AppExtensions
       .AddAppDomainModel(logger)
       .AddAppDomainUseCases(logger)
       .AddAppInfrastructureTiedToCore(logger, appBuilder.Configuration)
-      .AddAppInfrastructureTiedToEntityFramework(logger, appConfigOptions.PostgreSQL, appBuilder.Configuration);
+      .AddAppInfrastructureTiedToPostgreSQL(logger, out AppDbSettings appDbSettings)
+      .AddAppInfrastructureTiedToEntityFramework(logger, appDbSettings)
+      .AddAppInfrastructureTiedToEntityFrameworkForPostgreSQL(
+        logger,
+        appConfigOptions.PostgreSQL,
+        appBuilder.Configuration);
 
     services.AddHostedService<AppService>();
 

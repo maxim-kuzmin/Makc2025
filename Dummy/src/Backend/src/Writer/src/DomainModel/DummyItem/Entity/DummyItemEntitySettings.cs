@@ -3,5 +3,10 @@
 /// <summary>
 /// Настройки сущности фиктивного предмета.
 /// </summary>
-/// <param name="MaxLengthForName">Максимальная длина для имени.</param>
-public record DummyItemEntitySettings(int MaxLengthForName);
+public record DummyItemEntitySettings
+{
+  /// <summary>
+  /// Максимальная длина для имени.
+  /// </summary>
+  public int MaxLengthForName { get; protected set; }
+}

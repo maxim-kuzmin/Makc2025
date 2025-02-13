@@ -1,7 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Options;
-
-namespace Makc2025.Dummy.Writer.Apps.WebApp.App;
+﻿namespace Makc2025.Dummy.Writer.Apps.WebApp.App;
 
 /// <summary>
 /// Расширения приложения.
@@ -33,7 +30,12 @@ public static class AppExtensions
       .AddAppDomainModel(logger)
       .AddAppDomainUseCases(logger)
       .AddAppInfrastructureTiedToCore(logger, appBuilder.Configuration, appConfigSectionAuthentication)
-      .AddAppInfrastructureTiedToEntityFramework(logger, appConfigOptions.PostgreSQL, appBuilder.Configuration)
+      .AddAppInfrastructureTiedToPostgreSQL(logger, out AppDbSettings appDbSettings)
+      .AddAppInfrastructureTiedToEntityFramework(logger, appDbSettings)
+      .AddAppInfrastructureTiedToEntityFrameworkForPostgreSQL(
+        logger,
+        appConfigOptions.PostgreSQL,
+        appBuilder.Configuration)
       .AddAppInfrastructureTiedToGrpc(logger)
       .AddAppInfrastructureTiedToRabbitMQ(logger, appConfigSectionRabbitMQ);
 

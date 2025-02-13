@@ -10,43 +10,18 @@ public static class AppExtensions
   /// </summary>
   /// <param name="services">Сервисы.</param>
   /// <param name="logger">Логгер.</param>
-  /// <param name="appConfigOptionsPostgreSQL">Секция PostgreSQL в параметрах конфигурации приложения.</param>
-  /// <param name="configuration">Конфигурация.</param>
+  /// <param name="appDbSettings">Настройки базы данных приложения.</param>
   /// <returns>Сервисы.</returns>
   public static IServiceCollection AddAppInfrastructureTiedToEntityFramework(
     this IServiceCollection services,
     ILogger logger,
-    AppConfigOptionsPostgreSQLSection? appConfigOptionsPostgreSQL,
-    IConfiguration configuration)
+    AppDbSettings appDbSettings)
   {
-    if (appConfigOptionsPostgreSQL != null)
-    {
-      var connectionStringTemplate = configuration.GetConnectionString(
-        appConfigOptionsPostgreSQL.ConnectionStringName);
-
-      Guard.Against.Null(connectionStringTemplate, nameof(connectionStringTemplate));
-
-      var connectionString = appConfigOptionsPostgreSQL.ToConnectionString(connectionStringTemplate);
-
-      AppDbContext.Init(new AppDbSettingsForPostgreSQL());
-
-      services.AddDbContext<AppDbContext>(options => options.UseNpgsql(connectionString));
-    }
-
-    var appDbSettings = AppDbContext.GetAppDbSettings();
-
-    services.AddSingleton(appDbSettings);
-
-    services.AddSingleton(appDbSettings.Entities.AppEvent);
-    services.AddSingleton(appDbSettings.Entities.AppEventPayload);
-    services.AddSingleton(appDbSettings.Entities.DummyItem);
-
-    services.AddSingleton(appDbSettings.Entities.AppEvent.ToEntitySettings());
-    services.AddSingleton(appDbSettings.Entities.AppEventPayload.ToEntitySettings());
-    services.AddSingleton(appDbSettings.Entities.DummyItem.ToEntitySettings());
+    AppDbContext.Init(appDbSettings);
 
     services.AddScoped<IAppDbExecutor, AppDbExecutor>();
     services.AddScoped<IAppDbHelperForSQL, AppDbContext>();
+    services.AddScoped<IAppDbSQLContext, AppDbContext>();
 
     services.AddScoped(typeof(IRepository<>), typeof(AppRepositoryBase<>));
     services.AddScoped(typeof(IReadRepository<>), typeof(AppRepositoryBase<>));
@@ -70,9 +45,7 @@ public static class AppExtensions
   /// <param name="app">Приложение.</param>
   /// <param name="logger">Логгер.</param>
   /// <returns>Задача.</returns>
-  public static async Task UseAppInfrastructureTiedToEntityFramework(
-    this IHost app,
-    ILogger logger)
+  public static async Task UseAppInfrastructureTiedToEntityFramework(this IHost app, ILogger logger)
   {
     using var scope = app.Services.CreateScope();
 
@@ -80,12 +53,12 @@ public static class AppExtensions
 
     try
     {
-      var context = scopedServices.GetRequiredService<AppDbContext>();
+      var appDbContext = scopedServices.GetRequiredService<AppDbContext>();
 
-      //await context.Database.MigrateAsync().ConfigureAwait(false);
-      await context.Database.EnsureCreatedAsync().ConfigureAwait(false);
+      //await appDbContext.Database.MigrateAsync().ConfigureAwait(false);
+      //await appDbContext.Database.EnsureCreatedAsync().ConfigureAwait(false);
 
-      await AppData.InitializeAsync(context).ConfigureAwait(false);
+      await AppData.InitializeAsync(appDbContext).ConfigureAwait(false);
 
       logger.LogInformation("Used application infrastructure tied to Entity Framework");
     }

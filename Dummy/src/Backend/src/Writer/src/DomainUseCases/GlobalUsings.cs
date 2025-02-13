@@ -9,6 +9,7 @@ global using Makc2025.Dummy.Shared.Core.App.Config.Options.Sections;
 global using Makc2025.Dummy.Shared.DomainModel.Entity;
 global using Makc2025.Dummy.Shared.DomainUseCases.Db;
 global using Makc2025.Dummy.Shared.DomainUseCases.Db.Helpers;
+global using Makc2025.Dummy.Shared.DomainUseCases.Db.SQL;
 global using Makc2025.Dummy.Shared.DomainUseCases.DTOs;
 global using Makc2025.Dummy.Shared.DomainUseCases.Query;
 global using Makc2025.Dummy.Writer.DomainModel.AppEvent;

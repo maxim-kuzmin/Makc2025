@@ -30,4 +30,27 @@ public static class Extensions
       return dbContext.Database.SqlQueryRaw<T>(sqlWithFormat);
     }
   }
+
+  /// <summary>
+  /// Создать запрос. Подробности здесь:
+  /// <see cref="IDbSQLContext.CreateQuery{T}(DbSQLCommand)"/>
+  /// </summary>
+  /// <typeparam name="T">Тип данных, возвращаемый запросом.</typeparam>
+  /// <param name="dbContext">Контекст базы данных.</param>
+  /// <param name="sqlWithFormat">SQL с форматированием.</param>
+  /// <param name="parameters">Параметры.</param>
+  /// <returns>Запрос.</returns>
+  public static IQueryable<T> CreateQuery<T>(this DbContext dbContext, DbSQLCommand command)
+  {
+    if (command.Parameters?.Any() == true)
+    {
+      var sql = FormattableStringFactory.Create(command.TextWithFormat, [.. command.Parameters]);
+
+      return dbContext.Database.SqlQuery<T>(sql);
+    }
+    else
+    {
+      return dbContext.Database.SqlQueryRaw<T>(command.TextWithFormat);
+    }
+  }
 }
