@@ -1,9 +1,9 @@
-﻿namespace Makc2025.Dummy.Writer.DomainModel.DummyItem;
+﻿namespace Makc2025.Dummy.Writer.DomainModel.DummyItem.Enums;
 
 /// <summary>
-/// Ошибка фиктивного предмета.
+/// Перечисление ошибок фиктивного предмета.
 /// </summary>
-public enum DummyItemError
+public enum DummyItemErrorEnum
 {
   /// <summary>
   /// Имя пустое.

@@ -62,7 +62,7 @@ public class AppEventPayloadAggregate(
     {
       string errorMessage = _resources.GetAppEventIdIsInvalidErrorMessage();
 
-      var appError = AppEventPayloadError.AppEventIdIsInvalid.ToAppError(errorMessage);
+      var appError = AppEventPayloadErrorEnum.AppEventIdIsInvalid.ToAppError(errorMessage);
 
       UpdateErrors.Add(appError);
     }
@@ -84,7 +84,7 @@ public class AppEventPayloadAggregate(
     {
       string errorMessage = _resources.GetDataIsEmptyErrorMessage();
 
-      var appError = AppEventPayloadError.DataIsEmpty.ToAppError(errorMessage);
+      var appError = AppEventPayloadErrorEnum.DataIsEmpty.ToAppError(errorMessage);
 
       UpdateErrors.Add(appError);
     }
@@ -93,7 +93,7 @@ public class AppEventPayloadAggregate(
     {
       string errorMessage = _resources.GetDataIsTooLongErrorMessage(_settings.MaxLengthForData);
 
-      var appError = AppEventPayloadError.DataIsTooLong.ToAppError(errorMessage);
+      var appError = AppEventPayloadErrorEnum.DataIsTooLong.ToAppError(errorMessage);
 
       UpdateErrors.Add(appError);
     }

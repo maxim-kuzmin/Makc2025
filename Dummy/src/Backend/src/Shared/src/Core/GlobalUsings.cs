@@ -7,4 +7,5 @@ global using System.Text;
 global using Ardalis.Result;
 global using DotEnv.Core;
 global using Makc2025.Dummy.Shared.Core.App;
+global using Makc2025.Dummy.Shared.Core.App.Config.Options.Enums;
 global using Microsoft.IdentityModel.Tokens;

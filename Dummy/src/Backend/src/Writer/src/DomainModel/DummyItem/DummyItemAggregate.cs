@@ -55,7 +55,7 @@ public class DummyItemAggregate(
     {
       string errorMessage = _resources.GetNameIsEmptyErrorMessage();
 
-      var appError = DummyItemError.NameIsEmpty.ToAppError(errorMessage);
+      var appError = DummyItemErrorEnum.NameIsEmpty.ToAppError(errorMessage);
 
       UpdateErrors.Add(appError);
     }
@@ -64,7 +64,7 @@ public class DummyItemAggregate(
     {
       string errorMessage = _resources.GetNameIsTooLongErrorMessage(_settings.MaxLengthForName);
 
-      var appError = DummyItemError.NameIsTooLong.ToAppError(errorMessage);
+      var appError = DummyItemErrorEnum.NameIsTooLong.ToAppError(errorMessage);
 
       UpdateErrors.Add(appError);
     }

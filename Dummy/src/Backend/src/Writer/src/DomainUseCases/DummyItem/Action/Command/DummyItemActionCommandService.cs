@@ -158,7 +158,7 @@ public class DummyItemActionCommandService(
   private Task<Result> OnEntityChanged(EntityChange<DummyItemEntity> entityChange, CancellationToken cancellationToken)
   {
     return _appProducerActionCommandService.Save(
-      new(AppEventName.DummyItemChanged, [entityChange]),
+      new(AppEventNameEnum.DummyItemChanged, [entityChange]),
       cancellationToken);
   }
 }

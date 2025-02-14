@@ -1,9 +1,9 @@
-﻿namespace Makc2025.Dummy.Writer.DomainModel.AppEventPayload;
+﻿namespace Makc2025.Dummy.Writer.DomainModel.AppEventPayload.Enums;
 
 /// <summary>
-/// Ошибка полезной нагрузки события приложения.
+/// Перечисление ошибок полезной нагрузки события приложения.
 /// </summary>
-public enum AppEventPayloadError
+public enum AppEventPayloadErrorEnum
 {
   /// <summary>
   /// Идентификатор события недействителен.

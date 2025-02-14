@@ -1,9 +1,9 @@
-﻿namespace Makc2025.Dummy.Writer.DomainModel.AppEvent;
+﻿namespace Makc2025.Dummy.Writer.DomainModel.AppEvent.Enums;
 
 /// <summary>
-/// Ошибка события приложения.
+/// Перечисление ошибок события приложения.
 /// </summary>
-public enum AppEventError
+public enum AppEventErrorEnum
 {
   /// <summary>
   /// Дата создания недействительна.

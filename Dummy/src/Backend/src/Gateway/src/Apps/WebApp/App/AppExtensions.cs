@@ -1,6 +1,4 @@
-﻿using Microsoft.Extensions.Options;
-
-namespace Makc2025.Dummy.Gateway.Apps.WebApp.App;
+﻿namespace Makc2025.Dummy.Gateway.Apps.WebApp.App;
 
 /// <summary>
 /// Расширения приложения.
@@ -31,13 +29,13 @@ public static class AppExtensions
 
     var writer = Guard.Against.Null(appConfigOptions.Writer);
 
-    switch (writer.ApiType)
+    switch (writer.API)
     {
-      case AppInfrastructure.Http:
-        services.AddAppInfrastructureTiedToHttp(logger, writer.HttpApiAddress);
+      case AppConfigOptionsAPIEnum.Http:
+        services.AddAppInfrastructureTiedToHttp(logger, writer.HttpAPIAddress);
         break;
-      case AppInfrastructure.Grpc:      
-        services.AddAppInfrastructureTiedToGrpc(logger, writer.GrpcApiAddress);
+      case AppConfigOptionsAPIEnum.Grpc:      
+        services.AddAppInfrastructureTiedToGrpc(logger, writer.GrpcAPIAddress);
         break;
       default:
         throw new NotImplementedException();

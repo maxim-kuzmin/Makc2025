@@ -10,12 +10,12 @@ public static class AppExtensions
   /// </summary>
   /// <param name="services">Сервисы.</param>
   /// <param name="logger">Логгер.</param>
-  /// <param name="writerApiAddress">Адрес API писателя.</param>
+  /// <param name="writerAPIAddress">Адрес API писателя.</param>
   /// <returns>Сервисы.</returns>
   public static IServiceCollection AddAppInfrastructureTiedToHttp(
       this IServiceCollection services,
       ILogger logger,
-      string writerApiAddress)
+      string writerAPIAddress)
   {
     services.AddTransient<IAppActionCommandService, AppActionCommandService>();
     services.AddTransient<IDummyItemActionCommandService, DummyItemActionCommandService>();
@@ -27,7 +27,7 @@ public static class AppExtensions
       AppSettings.WriterDummyItemClientName,
       httpClient =>
       {
-        httpClient.BaseAddress = new Uri(writerApiAddress);
+        httpClient.BaseAddress = new Uri(writerAPIAddress);
 
         httpClient.DefaultRequestHeaders.UserAgent.ParseAdd(userAgent);
       })

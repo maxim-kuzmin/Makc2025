@@ -69,7 +69,7 @@ public class AppEventAggregate(
     {
       string errorMessage = _resources.GetCreatedAtIsInvalidErrorMessage();
 
-      var appError = AppEventError.CreatedAtIsInvalid.ToAppError(errorMessage);
+      var appError = AppEventErrorEnum.CreatedAtIsInvalid.ToAppError(errorMessage);
 
       UpdateErrors.Add(appError);
     }
@@ -104,7 +104,7 @@ public class AppEventAggregate(
     {
       string errorMessage = _resources.GetNameIsEmptyErrorMessage();
 
-      var appError = AppEventError.NameIsEmpty.ToAppError(errorMessage);
+      var appError = AppEventErrorEnum.NameIsEmpty.ToAppError(errorMessage);
 
       UpdateErrors.Add(appError);
     }
@@ -113,7 +113,7 @@ public class AppEventAggregate(
     {
       string errorMessage = _resources.GetNameIsTooLongErrorMessage(_settings.MaxLengthForName);
 
-      var appError = AppEventError.NameIsTooLong.ToAppError(errorMessage);
+      var appError = AppEventErrorEnum.NameIsTooLong.ToAppError(errorMessage);
 
       UpdateErrors.Add(appError);
     }
